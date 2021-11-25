@@ -5,7 +5,7 @@
       color="transparent"
       class="pa-0"
   >
-    <IconsGroup/>
+    <IconsGroup v-show="false"/>
     <v-list-group
         v-for="(item,index) in items"
         :key="index"
