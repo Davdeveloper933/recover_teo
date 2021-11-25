@@ -1,5 +1,5 @@
 <template>
-  <v-row class="sections d-block mt-9">
+  <v-row class="sections d-block mt-16">
     <h2
         class="sections__title"
         v-if="items.length"
