@@ -3,7 +3,7 @@
       class="section__container"
   >
   <v-row
-      class="ma-0"
+      class="ma-xl-0"
   >
   <v-col
       cols="12"
