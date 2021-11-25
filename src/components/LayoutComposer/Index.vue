@@ -144,7 +144,7 @@ export default {
   display: flex;
   width: 100%;
   justify-content: center;
-  border-bottom: 1px solid #e3e3e3;
+  border-bottom: none;
   margin-bottom: 15px;
   padding-bottom: 10px;
 }

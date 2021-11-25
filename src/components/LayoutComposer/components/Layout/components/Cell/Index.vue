@@ -491,8 +491,8 @@ export default {
 
 .Layout_Cell--hovered {
   cursor: grab;
-  background: unset !important;
-  opacity: 0.4;
+  background: #1A1B25 !important;
+  opacity: 1;
 }
 
 .Layout_Cell--dragging {
