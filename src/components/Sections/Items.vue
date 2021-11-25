@@ -5,20 +5,26 @@
       color="transparent"
       class="pa-0"
   >
-    <IconsGroup v-show="false"/>
     <v-list-group
         v-for="(item,index) in items"
         :key="index"
         class="items__group"
-        :prepend-icon="'mdi-menu'"
         active-class="bg-active"
+        @mouseleave="isHovered = false"
+        @mouseover="isHovered = index"
     >
       <template v-slot:activator>
         <v-list-item-content>
-          <v-list-item-title>
+          <v-list-item-title class="items__title">
+            <span class="mr-2">
+              <ListSVG class="items__icon"/>
+            </span>
             {{ item.title}}
           </v-list-item-title>
         </v-list-item-content>
+        <transition name="fade">
+          <IconsGroup v-if="isHovered === index"/>
+        </transition>
       </template>
     </v-list-group>
   </v-list>
@@ -27,9 +33,10 @@
 
 <script>
 import IconsGroup from "../IconsGroup";
+import ListSVG from "../SVG/ListSVG";
 export default {
   name: "SectionsItems",
-  components: {IconsGroup},
+  components: {ListSVG, IconsGroup},
   props: ['items'],
   data () {
     return {
@@ -40,5 +47,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

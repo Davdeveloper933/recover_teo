@@ -6,7 +6,7 @@
     >
       Разделы
     </h2>
-    <v-row class="ma-0 justify-space-between d-flex">
+    <v-row class="ma-0 justify-space-between flex-column flex-lg-row d-flex">
         <SectionsItems v-if="items.length" :items="items"></SectionsItems>
 <!--      <v-spacer></v-spacer>-->
         <Fields/>

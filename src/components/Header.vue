@@ -5,8 +5,8 @@
       elevation="0"
       color="#232532"
   >
-    <v-container class="d-flex justify-center">
-    <v-row justify="between" align="center" class="header__wrap">
+    <v-container class="d-flex justify-center header__container">
+    <v-row justify="between" align="center" class="header__wrap ma-0">
       <v-row align="center">
     <v-row class="header__logo" align="center">
         <a href="#" class="header__logo__svg">

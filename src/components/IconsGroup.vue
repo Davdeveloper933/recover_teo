@@ -3,11 +3,8 @@
     <v-btn class="icon-btn px-0 plus"
            :max-width="'32px'"
            :min-width="'32px'"
-           color="#FFFFFF"
     >
-      <v-icon dark>
-        mdi-plus
-      </v-icon>
+      <img :src="require(`@/assets/img/icons/plus.svg`)" alt="">
     </v-btn>
     <v-btn class="icon-btn px-0 gear"
            :max-width="'32px'"

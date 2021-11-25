@@ -16,27 +16,21 @@
           <v-btn
               color="transparent"
               elevation="0"
-              class="fields__btn icon-btn px-0"
-              :max-width="'30px'"
-              :min-width="'30px'"
+              class="fields__btn icon-btn chevron"
           >
-          <img :src="require(`@/assets/img/icons/chevron.backward.svg`)" alt="arrow-left">
+          <img :src="require(`@/assets/img/icons/chevron.backward.svg`)" class="icons" alt="arrow-left">
           </v-btn>
           <v-btn
               class="fields__btn icon-btn px-0"
               elevation="0"
-              :max-width="'30px'"
-              :min-width="'30px'"
           >
-            <img :src="require(`@/assets/img/icons/bomb.svg`)" alt="">
+            <img :src="require(`@/assets/img/icons/bomb.svg`)" class="icons" alt="">
           </v-btn>
           <v-btn
-              class="fields__btn icon-btn px-0"
+              class="fields__btn icon-btn pa-0"
               elevation="0"
-              :max-width="'30px'"
-              :min-width="'30px'"
           >
-            <v-icon>
+            <v-icon class="icons">
               mdi-plus
             </v-icon>
           </v-btn>

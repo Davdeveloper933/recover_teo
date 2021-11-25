@@ -11,6 +11,8 @@
     <v-row
         class="fields__item align-center white--text mx-0 mt-0"
         @click="onClick"
+        @mouseover="hovered = true"
+        @mouseleave="hovered = false"
     >
       <div>
         <img :src="require(`@/assets/img/icons/list.svg`)" alt="">
@@ -19,15 +21,20 @@
         Наименование
         <span class="fields__item__translation">(Name)</span>
       </h3>
+      <transition name="fade">
+      <FieldIcons v-if="hovered"/>
+      </transition>
     </v-row>
   </cell>
 </template>
 
 <script>
 import Cell from './LayoutComposer/components/Layout/components/Cell/Index'
+import FieldIcons from "./FieldIcons";
 export default {
   name: 'Item',
   components: {
+    FieldIcons,
     Cell,
   },
   props: {
@@ -38,6 +45,11 @@ export default {
     // custom props
     content: String,
     background: String,
+  },
+  data () {
+    return {
+      hovered: false
+    }
   },
   computed: {
     config() {

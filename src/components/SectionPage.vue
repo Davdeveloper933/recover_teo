@@ -69,9 +69,9 @@
           class="eye-button"
           color="#3C3F4F"
           elevation="0"
-          min-width="40"
       >
-        <EyeSVG/>
+        <EyeSVG class="icons" v-if="false"/>
+        <img :src="require(`@/assets/img/icons/eye-slash-fill.svg`)" alt="">
       </v-btn>
     </v-row>
     <Sections/>

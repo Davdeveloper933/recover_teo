@@ -1,6 +1,16 @@
 @import "fonts";
 @import "header/_styles";
 
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter,
+.fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+  opacity: 0;
+}
+
 .v-application {
   font-family: 'Avenir Next', sans-serif;
 }
@@ -20,6 +30,9 @@
         &.add-button {
           padding: 20px 25px 20px 30px;
           margin-right: 15px;
+          &__icon {
+            font-size: 20px;
+          }
         }
         &.generate-button {
           padding: 20px 22px;
@@ -33,6 +46,14 @@
         &.eye-button {
           padding: 20px 6px;
           margin-left: 15px;
+          //padding: 15px 6px;
+          //margin-left: 8px;
+          //height: 40px;
+          min-width: 40px;
+          width: 40px;
+          //img {
+          //  width: 21px;
+          //}
         }
       }
     }
@@ -50,6 +71,10 @@
   .items {
     width: 321px;
     max-width: 321px;
+    &__title {
+      font-weight: 500;
+      font-size: 15px;
+    }
     &__group {
       background: #3C3F4F;
       border-radius: 3px;
@@ -62,6 +87,9 @@
         }
         &:hover {
           background: #FEAC0D;
+          .items__icon path {
+            stroke-opacity: 1;
+          }
         }
       }
       .v-list-item {
@@ -87,36 +115,94 @@
 
 .table {
   margin-top: 150px;
+  padding: 0 15px;
+  background: #3C3F4F;
+  &.theme--light.v-data-table {
+    background: #3C3F4F !important;
+  }
   tr,th {
     background: #3C3F4F;
+  }
+  tr:hover:not(.v-data-table__expanded__content):not(.v-data-table__empty-wrapper) {
+    background: transparent !important;
   }
   th {
     font-weight: 500;
     font-size: 18px;
     color: rgba(255, 255, 255, 0.6) !important;
+    border-bottom: 1.5px solid rgba(35, 37, 50, 0.5);
   }
   &__td {
     font-weight: 500;
     font-size: 18px;
     color: #FFFFFF;
   }
+  &__btn {
+    width: 24px !important;
+    height: 24px !important;
+    min-width: 24px !important;
+    padding: 0 !important;
+    margin-left: 6px;
+    img {
+      width: 12px;
+    }
+  }
 }
 
 .icon-btn {
-  padding: 0;
+  padding: 0 !important;
   border-radius: 3px;
   margin-right: 5px;
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px !important;
+  //img {
+  //  width: 16px;
+  //}
+  //&.chevron {
+  //  img {
+  //    width: 8px;
+  //  }
+  //}
+  &.trash {
+    img {
+      width: 14px;
+    }
+  }
+  &.chevron {
+    img {
+      width: 12px;
+    }
+  }
+  &.doc {
+    img {
+      width: 10px;
+    }
+  }
+  &.gear {
+    img {
+      width: 15px;
+    }
+  }
+  &.plus {
+    img {
+      width: 12px;
+    }
+  }
 }
 
 .icons__wrapper {
   position: absolute;
-  right: -190px;
-  top: 82px;
+  right: -147px;
+  top: 27px;
 }
 
 .bg-active {
   background-color: #FEAC0D;
   color: white !important;
+  .items__icon path {
+    stroke-opacity: 1;
+  }
 }
 
 .fields {
@@ -130,8 +216,7 @@
     margin-left: 12px;
   }
   &__btn {
-    height: 30px !important;
-    margin-right: 10px;
+    margin-right: 7px;
   }
   &__translation {
     margin-left: 6px;
@@ -144,6 +229,7 @@
     border-radius: 3px;
     padding: 15px;
     margin-bottom: 8px;
+    cursor: pointer;
     &__value {
       margin-left: 21px;
       font-weight: normal;
@@ -163,9 +249,114 @@
   max-width: 1008px;
 }
 
+@media (min-width: 1264px) {
+  //.container.section__container,.container.header__container {
+  //  max-width: 1050px;
+  //}
+}
+
 @media (min-width: 1904px) {
-  .container.section__container {
+  .container.section__container,
+  .container.header__container {
     max-width: 1608px;
+  }
+}
+
+@media (max-width: 1903px) {
+  .fields {
+    max-width: 710px;
+  }
+  .fields__title {
+    font-weight: 600;
+    font-size: 18px;
+  }
+  .section__top-buttons .v-btn {
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .sections__title {
+    font-size: 28px;
+  }
+  .fields__item__value {
+    margin-left: 11px;
+    font-size: 16px;
+  }
+  .fields__item__translation {
+    font-size: 16px;
+  }
+  .fields__translation {
+    font-size: 18px;
+  }
+}
+
+
+@media (max-width: 1440px) {
+  .user__name {
+    margin-right: 10px;
+    font-size: 14px;
+  }
+  .sections__title {
+    font-size: 25px;
+  }
+  .section__top-buttons .v-btn {
+    font-weight: 600;
+    font-size: 12px;
+  }
+  .section__top-buttons .v-btn.add-button {
+    padding: 15px 20px 15px 25px;
+    margin-right: 8px;
+  }
+  .section__top-buttons .v-btn.generate-button {
+    padding: 15px 17px;
+  }
+  .section__top-buttons .v-btn.eye-button {
+    padding: 15px 6px;
+    margin-left: 8px;
+    //height: 40px;
+    min-width: 35px;
+    width: 35px;
+    img {
+      width: 21px;
+    }
+  }
+  .fields__item__value {
+    margin-left: 6px;
+    font-size: 14px;
+  }
+  .fields__item__translation {
+    font-size: 14px;
+    margin-left: 4px;
+  }
+  .fields__translation {
+    font-size: 16px;
+  }
+  .fields__title {
+    font-size: 16px;
+  }
+  .icon-btn {
+    padding: 0 !important;
+    border-radius: 3px;
+    margin-right: 5px;
+    width: 22px !important;
+    height: 22px !important;
+    min-width: 22px !important;
+    img {
+      width: 16px;
+    }
+    &.chevron {
+      img {
+        //width: 8px;
+      }
+    }
+  }
+}
+
+@media (max-width: 1263px) {
+  .items {
+    margin-bottom: 40px;
+  }
+  .fields {
+    margin: 0 auto;
   }
 }
 

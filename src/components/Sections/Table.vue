@@ -1,6 +1,8 @@
 <template>
   <v-container>
-  <v-simple-table class="table">
+  <v-simple-table
+      class="table"
+  >
     <template v-slot:default>
       <thead>
       <tr>
@@ -27,10 +29,31 @@
         <td class="table__td">{{ item.director}}</td>
         <td class="table__td">{{ item.address}}</td>
         <td class="table__td" v-if="item.images && item.images.length">
+<!--          <v-row>-->
+<!--            <v-col cols="2" v-for="(img,index) in item.images" :key="index">-->
+<!--              <img :src="require(`@/assets/img/${img}`)" alt="">-->
+<!--            </v-col>-->
+<!--          </v-row>-->
           <v-row>
-            <v-col cols="2" v-for="(img,index) in item.images" :key="index">
-              <img :src="require(`@/assets/img/${img}`)" alt="">
-            </v-col>
+            <v-btn
+                class="table__btn"
+                elevation="0"
+                color="#4BB5BC"
+            >
+              <img :src="require(`@/assets/img/icons/small-eye.svg`)" alt="">
+            </v-btn>
+            <v-btn
+                class="table__btn"
+                color="#4B78BC"
+            >
+              <img :src="require(`@/assets/img/icons/edit.svg`)" alt="">
+            </v-btn>
+            <v-btn
+                class="table__btn"
+                color="#BC4B4B"
+            >
+              <img :src="require(`@/assets/img/icons/trash.svg`)" alt="">
+            </v-btn>
           </v-row>
         </td>
       </tr>
