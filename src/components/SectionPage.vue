@@ -70,6 +70,13 @@
           color="#3C3F4F"
           elevation="0"
       >
+        <img :src="require(`@/assets/img/icons/clock.arrow.svg`)" alt="">
+      </v-btn>
+      <v-btn
+          class="eye-button"
+          color="#3C3F4F"
+          elevation="0"
+      >
         <EyeSVG class="icons" v-if="false"/>
         <img :src="require(`@/assets/img/icons/eye-slash-fill.svg`)" alt="">
       </v-btn>

@@ -128,7 +128,7 @@ export default {
   methods: {
     buildConfig() {
       this.$emit('change:config', this.$children[0].getConfig())
-    },
+    }
   },
 }
 </script>

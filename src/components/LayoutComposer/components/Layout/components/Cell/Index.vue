@@ -411,7 +411,8 @@ export default {
       this.parentLayoutComponent.configUpdate(newPrevParentLayoutJson)
       if (newNextParentLayoutJson)
         this.lastLayoutComponent.configUpdate(newNextParentLayoutJson)
-      ;[...document.querySelectorAll(CELL_PLACEHOLDER_CLASS)].forEach(el =>
+      ;
+      [...document.querySelectorAll(CELL_PLACEHOLDER_CLASS)].forEach(el =>
         el.remove()
       )
       if (targetEl) targetEl.style.display = 'block'
