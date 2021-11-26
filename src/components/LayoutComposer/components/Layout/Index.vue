@@ -66,7 +66,7 @@ export default {
     return {
       config: _.cloneDeep(this.initialConfig),
       hovered: false,
-      moveHovered: false,
+      moveHovered: false
     }
   },
   computed: {

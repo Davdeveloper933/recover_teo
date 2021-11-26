@@ -1,30 +1,30 @@
 <template>
   <div class="LayoutComposer">
-    <template v-if="!internalEditable">
-      <div class="LayoutComposer__Actions">
-        <a
-          href="#"
-          class="LayoutComposer__ActionButton"
-          @click.prevent="internalEditable = !internalEditable"
-        >
-          Edit
-        </a>
-      </div>
-    </template>
-    <template v-else>
-      <div class="LayoutComposer__Actions">
-        <a
-          href="#"
-          class="LayoutComposer__ActionButton"
-          @click.prevent="
-            internalEditable = !internalEditable
-            buildConfig()
-          "
-        >
-          Save
-        </a>
-      </div>
-    </template>
+<!--    <template v-if="!internalEditable">-->
+<!--      <div class="LayoutComposer__Actions">-->
+<!--        <a-->
+<!--          href="#"-->
+<!--          class="LayoutComposer__ActionButton"-->
+<!--          @click.prevent="internalEditable = !internalEditable"-->
+<!--        >-->
+<!--          Edit-->
+<!--        </a>-->
+<!--      </div>-->
+<!--    </template>-->
+<!--    <template v-else>-->
+<!--      <div class="LayoutComposer__Actions">-->
+<!--        <a-->
+<!--          href="#"-->
+<!--          class="LayoutComposer__ActionButton"-->
+<!--          @click.prevent="-->
+<!--            internalEditable = !internalEditable-->
+<!--            buildConfig()-->
+<!--          "-->
+<!--        >-->
+<!--          Save-->
+<!--        </a>-->
+<!--      </div>-->
+<!--    </template>-->
 
     <Layout
       :cell-props="{
@@ -49,6 +49,7 @@ import LayoutUtils from './utils/layout'
 import EventBus from './eventBus'
 
 import Layout from './components/Layout/Index'
+import {mapMutations} from "vuex";
 
 export default {
   name: 'LayoutComposer',
@@ -64,7 +65,7 @@ export default {
     return {
       dragging: false,
       internalConfig: {},
-      internalEditable: this.editable,
+      internalEditable: true,
     }
   },
   computed: {
@@ -99,8 +100,8 @@ export default {
     LayoutUtils.addIds(this.internalConfig)
   },
   mounted() {
+    this.internalEditable = true
     if (window.documentHasDropListener) return
-
     document.addEventListener('dragstart', () => {
       setTimeout(() => {
         this.dragging = true
@@ -117,15 +118,18 @@ export default {
     })
 
     EventBus.$on('global:dragend', () => {
-      if (!this.internalEditable) return false
+      // if (!this.internalEditable) return false
       setTimeout(() => {
         this.dragging = false
+        this.getConfigFromLayout(this.$children[0].getConfig())
+        console.log(this.$children[0].getConfig())
       }, 100)
     })
 
     window.documentHasDropListener = true
   },
   methods: {
+    ...mapMutations(['getConfigFromLayout']),
     buildConfig() {
       this.$emit('change:config', this.$children[0].getConfig())
     }

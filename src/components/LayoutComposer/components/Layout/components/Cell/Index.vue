@@ -492,18 +492,18 @@ export default {
 
 .Layout_Cell--hovered {
   cursor: grab;
-  background: #1A1B25 !important;
-  opacity: 1;
+  background: transparent !important;
+  opacity: 1 !important;
 }
 
 .Layout_Cell--dragging {
-  border: 1px solid #e3e3e3;
-  padding: 10px;
+  border: none !important;
+  padding: 0 !important;
   animation: pop-in 0.2s cubic-bezier(0.075, 0.82, 0.165, 1) 0s 1;
 }
 
 .Layout_Cell--emphasized {
-  border-color: #aaaaaa;
+  border-color: unset !important;
 }
 
 .Layout_Cell--dropped {

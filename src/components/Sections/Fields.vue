@@ -26,14 +26,49 @@
           >
             <img :src="require(`@/assets/img/icons/bomb.svg`)" class="icons" alt="">
           </v-btn>
-          <v-btn
-              class="fields__btn icon-btn pa-0"
-              elevation="0"
+          <v-dialog
+              v-model="dialog"
+              persistent
+              max-width="400"
           >
-            <v-icon class="icons">
-              mdi-plus
-            </v-icon>
-          </v-btn>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                  class="fields__btn icon-btn pa-0"
+                  elevation="0"
+                  v-bind="attrs"
+                  v-on="on"
+              >
+                <v-icon class="icons">
+                  mdi-plus
+                </v-icon>
+              </v-btn>
+            </template>
+            <v-card>
+
+              <v-card-title class="text-h5">
+                Добавить раздел
+              </v-card-title>
+              <v-card-text>
+                <v-text-field label="Введите название"></v-text-field>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                    color="green darken-1"
+                    text
+                    @click="dialog = false"
+                >
+                  Закрыть
+                </v-btn>
+                <v-btn
+                    color="green darken-1"
+                    text
+                >
+                  Сохранить
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
         </v-col>
     </v-row>
     <LayoutTest/>
@@ -140,6 +175,7 @@ export default {
   components: {LayoutTest},
   data () {
     return {
+      dialog:false,
       icons: {
         mdiFormatListBulleted
       },

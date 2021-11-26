@@ -1,7 +1,7 @@
   <template>
       <layout-composer
           :displayComponents="displayComponents"
-          :config="config"
+          :config="initialConfig"
           @change:config="onConfigChange"
       />
   </template>
@@ -24,6 +24,15 @@
             'Item': Item,
           },
           config
+        }
+      },
+      created() {
+        // localStorage.setItem('config',JSON.stringify(this.config))
+      },
+      computed: {
+        initialConfig: () => {
+          if (!JSON.parse(localStorage.getItem('config'))) return this.config
+          return JSON.parse(localStorage.getItem('config'))
         }
       },
       methods: {
