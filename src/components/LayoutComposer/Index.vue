@@ -103,13 +103,18 @@ export default {
     window.documentHasDropListener = true
   },
   methods: {
-    ...mapMutations(['setSelectedItem','saveFieldPositions']),
+    ...mapMutations(['setSelectedItem','saveFieldPositions','updateFields']),
     buildConfig() {
-      // const sections = this.$store.state.sections
-      this.config = this.$children[0].getConfig()
+      const sections = this.$store.state.sections
+      const newConfig = this.$children[0].getConfig()
       this.setSelectedItem(this.selectedIndex)
-      this.saveFieldPositions(this.config)
-      console.log(this.config)
+      sections.forEach((section,index) => {
+        if (index === this.selectedIndex) {
+          section.layout = newConfig
+        }
+      })
+      this.updateFields(sections)
+      console.log(JSON.parse(localStorage.getItem('sections')))
     }
   },
 }
