@@ -30,7 +30,7 @@
         // localStorage.setItem('config',JSON.stringify(this.config))
       },
       computed: {
-        initialConfig: () => {
+        initialConfig() {
           if (!JSON.parse(localStorage.getItem('config'))) return this.config
           return JSON.parse(localStorage.getItem('config'))
         }
