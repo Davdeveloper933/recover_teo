@@ -30,9 +30,8 @@
       },
       computed: {
         initialConfig() {
-          const sections = JSON.parse(localStorage.getItem('sections'))
-          if (!sections) return sections[this.selectedIndex].layout
-          return this.selectedSection.layout
+          const sections = this.$store.state.sections
+            return sections[this.selectedIndex].layout
         }
       },
       methods: {

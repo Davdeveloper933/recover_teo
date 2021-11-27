@@ -127,6 +127,7 @@ export default {
         }
       })
       this.updateFields(this.sections)
+      this.dialog = false
     }
   }
 }
