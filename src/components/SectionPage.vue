@@ -81,7 +81,7 @@
         <img :src="require(`@/assets/img/icons/eye-slash-fill.svg`)" alt="">
       </v-btn>
     </v-row>
-    <Sections/>
+    <Sections :key="this.$store.state.sections.length "/>
   </v-col>
   </v-row>
   </v-container>
@@ -101,12 +101,21 @@ export default {
     }
   },
   methods:{
-    ...mapMutations(['add','remove']),
+    ...mapMutations(['add','remove','saveSectionsToLocalStorage']),
     addItem() {
       this.add({
         icon:'list.svg',
-        title: this.title
+        section: this.title,
+        translation: 'Translation',
+        layout: {
+          component: "Layout",
+          props: {
+            "orientation": "vertical"
+          },
+          children: []
+        }
       })
+      this.saveSectionsToLocalStorage()
       this.dialog = false
     }
   }

@@ -1,31 +1,5 @@
 <template>
   <div class="LayoutComposer">
-<!--    <template v-if="!internalEditable">-->
-<!--      <div class="LayoutComposer__Actions">-->
-<!--        <a-->
-<!--          href="#"-->
-<!--          class="LayoutComposer__ActionButton"-->
-<!--          @click.prevent="internalEditable = !internalEditable"-->
-<!--        >-->
-<!--          Edit-->
-<!--        </a>-->
-<!--      </div>-->
-<!--    </template>-->
-<!--    <template v-else>-->
-<!--      <div class="LayoutComposer__Actions">-->
-<!--        <a-->
-<!--          href="#"-->
-<!--          class="LayoutComposer__ActionButton"-->
-<!--          @click.prevent="-->
-<!--            internalEditable = !internalEditable-->
-<!--            buildConfig()-->
-<!--          "-->
-<!--        >-->
-<!--          Save-->
-<!--        </a>-->
-<!--      </div>-->
-<!--    </template>-->
-
     <Layout
       :cell-props="{
         id: internalConfig.id,
@@ -60,6 +34,7 @@ export default {
     displayComponents: Object,
     config: Object,
     editable: Boolean,
+    selectedIndex: Number
   },
   data() {
     return {
@@ -128,10 +103,13 @@ export default {
     window.documentHasDropListener = true
   },
   methods: {
-    ...mapMutations(['getConfigFromLayout']),
+    ...mapMutations(['setSelectedItem','saveFieldPositions']),
     buildConfig() {
-      this.getConfigFromLayout(this.$children[0].getConfig())
-      console.log(this.$children[0].getConfig())
+      // const sections = this.$store.state.sections
+      this.config = this.$children[0].getConfig()
+      this.setSelectedItem(this.selectedIndex)
+      this.saveFieldPositions(this.config)
+      console.log(this.config)
     }
   },
 }

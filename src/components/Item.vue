@@ -19,7 +19,7 @@
         <img :src="require(`@/assets/img/icons/list.svg`)" alt="">
       </div>
       <h3 class="fields__item__value">
-       Наименование
+       {{ content }}
         <span class="fields__item__translation">(Name)</span>
       </h3>
       <transition name="fade">

@@ -14,12 +14,7 @@
           "component": "Item",
           "display": {
             "weight": 1
-          },
-          "props": {
-            "background": "#E6E7E8",
-            "content": "This"
-          },
-          "hello": "world"
+          }
         }
       ]
     },

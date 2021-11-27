@@ -89,6 +89,10 @@
           background: #FEAC0D;
           .items__icon path {
             stroke-opacity: 1;
+            stroke: white;
+          }
+          .items__title {
+            color: white;
           }
         }
       }
@@ -198,10 +202,11 @@
 }
 
 .bg-active {
-  background-color: #FEAC0D;
-  color: white !important;
+  background-color: transparent;
+  color: #FEAC0D !important;
   .items__icon path {
     stroke-opacity: 1;
+    stroke: #FEAC0D;
   }
 }
 
@@ -209,6 +214,7 @@
   background: #3C3F4F;
   border-radius: 3px;
   padding: 10px;
+  height: fit-content !important;
   &__title {
     font-weight: 600;
     font-size: 20px;
@@ -266,6 +272,10 @@
   position: absolute;
   left: 190px;
   z-index: 1000;
+}
+
+.Layout {
+  min-height: fit-content;
 }
 
 @media (min-width: 1904px) {

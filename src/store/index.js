@@ -6,6 +6,30 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     config: null,
+    sections: [
+        {
+            section: 'Заказ',
+            translation: 'order',
+            layout: {
+                component: "Layout",
+                props: {
+                    "orientation": "vertical"
+                },
+                children: []
+            }
+        },
+        {
+            section: 'Единица измерения',
+            translation: 'Unit_of_measurement',
+            layout: {
+                component: "Layout",
+                props: {
+                    "orientation": "vertical"
+                },
+                children: []
+            }
+        }
+    ],
     items: [
         {
             icon:'list.svg',
@@ -24,17 +48,34 @@ export default new Vuex.Store({
             title:'Касса'
         }
     ],
+    selectedItem: null
   },
   mutations: {
+      initialiseStore(state) {
+          if (localStorage.getItem('sections')) {
+              state.sections = JSON.parse(localStorage.getItem('sections'))
+          }
+      },
       remove(state,index) {
-          state.items.splice(index,1)
+          state.sections.splice(index,1)
       },
       add(state,item) {
-          state.items.push(item)
+          state.sections.push(item)
       },
-      getConfigFromLayout(state,newConfig) {
-          state.config = newConfig
-          localStorage.setItem('config',JSON.stringify(state.config))
+      saveSectionsToLocalStorage(state) {
+          localStorage.setItem('sections',JSON.stringify(state.sections))
+      },
+      updateFields(state,sections) {
+          state.sections = sections
+          localStorage.setItem('sections',JSON.stringify(state.sections))
+      },
+      saveFieldPositions(state,config) {
+        state.selectedItem.layout = config
+        localStorage.setItem('sections',JSON.stringify(state.sections))
+      },
+      setSelectedItem(state,selectedIndex) {
+          // state.selectedItem = state.sections.find((item,index) => index === selectedIndex)
+          state.selectedItem = state.sections[selectedIndex]
       }
   },
   actions: {

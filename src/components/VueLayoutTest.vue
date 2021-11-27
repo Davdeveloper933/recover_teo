@@ -3,6 +3,7 @@
           :displayComponents="displayComponents"
           :config="initialConfig"
           @change:config="onConfigChange"
+          :selected-index="selectedIndex"
       />
   </template>
 
@@ -18,6 +19,7 @@
       components: {
         LayoutComposer
       },
+      props:['selectedSection','selectedIndex'],
       data() {
         return {
           displayComponents: {
@@ -26,13 +28,11 @@
           config
         }
       },
-      created() {
-        // localStorage.setItem('config',JSON.stringify(this.config))
-      },
       computed: {
         initialConfig() {
-          if (!JSON.parse(localStorage.getItem('config'))) return this.config
-          return JSON.parse(localStorage.getItem('config'))
+          const sections = JSON.parse(localStorage.getItem('sections'))
+          if (!sections) return sections[this.selectedIndex].layout
+          return this.selectedSection.layout
         }
       },
       methods: {
