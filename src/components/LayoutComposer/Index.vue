@@ -118,11 +118,10 @@ export default {
     })
 
     EventBus.$on('global:dragend', () => {
-      // if (!this.internalEditable) return false
+      if (!this.internalEditable) return false
       setTimeout(() => {
+        this.buildConfig()
         this.dragging = false
-        this.getConfigFromLayout(this.$children[0].getConfig())
-        console.log(this.$children[0].getConfig())
       }, 100)
     })
 
@@ -131,7 +130,8 @@ export default {
   methods: {
     ...mapMutations(['getConfigFromLayout']),
     buildConfig() {
-      this.$emit('change:config', this.$children[0].getConfig())
+      this.getConfigFromLayout(this.$children[0].getConfig())
+      console.log(this.$children[0].getConfig())
     }
   },
 }

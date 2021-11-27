@@ -13,12 +13,13 @@
         @click="onClick"
         @mouseover="hovered = true"
         @mouseleave="hovered = false"
+        ref="block"
     >
       <div>
         <img :src="require(`@/assets/img/icons/list.svg`)" alt="">
       </div>
       <h3 class="fields__item__value">
-        Наименование
+       Наименование
         <span class="fields__item__translation">(Name)</span>
       </h3>
       <transition name="fade">
@@ -36,6 +37,18 @@ export default {
   components: {
     FieldIcons,
     Cell,
+  },
+  filters: {
+    truncate: (data,el) => {
+      // let output
+      // const reqdString = data.split("").slice(0, num).join("");
+      // return reqdString;
+      // if (this.$refs.block.clientWidth < 228) {
+      //     output = data.split('').slice(0,this.$refs.block.clientWidth/10).join("")
+      // }
+      console.log(el.clientWidth)
+      return data
+    }
   },
   props: {
     // vue-layout-composer props
