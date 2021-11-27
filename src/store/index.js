@@ -6,48 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     config: null,
-    sections: [
-        {
-            section: 'Заказ',
-            translation: 'order',
-            layout: {
-                component: "Layout",
-                props: {
-                    "orientation": "vertical"
-                },
-                children: []
-            }
-        },
-        {
-            section: 'Единица измерения',
-            translation: 'Unit_of_measurement',
-            layout: {
-                component: "Layout",
-                props: {
-                    "orientation": "vertical"
-                },
-                children: []
-            }
-        }
-    ],
-    items: [
-        {
-            icon:'list.svg',
-            title:'Заказ'
-        },
-        {
-            icon:'list.svg',
-            title:'Единица измерения'
-        },
-        {
-            icon:'list.svg',
-            title:'Справочник'
-        },
-        {
-            icon:'list.svg',
-            title:'Касса'
-        }
-    ],
+    sections: [],
     selectedItem: null
   },
   mutations: {
