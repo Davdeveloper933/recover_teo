@@ -59,26 +59,34 @@
         </v-card>
       </v-dialog>
       <v-btn
-          class="white--text generate-button"
+          class="white--text generate-button btns"
           color="#FEAC0D"
           elevation="0"
       >
         Сгенерировать
       </v-btn>
       <v-btn
-          class="eye-button"
+          class="eye-button btns"
           color="#3C3F4F"
           elevation="0"
       >
         <img :src="require(`@/assets/img/icons/clock.arrow.svg`)" alt="">
       </v-btn>
       <v-btn
-          class="eye-button"
+          class="eye-button btns"
           color="#3C3F4F"
           elevation="0"
       >
         <EyeSVG class="icons" v-if="false"/>
         <img :src="require(`@/assets/img/icons/eye-slash-fill.svg`)" alt="">
+      </v-btn>
+      <v-btn
+          class="eye-button btns"
+          color="#FEAC0D"
+          elevation="0"
+      >
+        <EyeSVG class="icons" v-if="false"/>
+        <img :src="require(`@/assets/img/icons/save.svg`)" alt="">
       </v-btn>
     </v-row>
     <Sections :key="this.$store.state.sections.length "/>

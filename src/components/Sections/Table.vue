@@ -38,6 +38,13 @@
             <v-btn
                 class="table__btn"
                 elevation="0"
+                color="#FEAC0D"
+            >
+              <img :src="require(`@/assets/img/icons/printer.fill.svg`)" alt="">
+            </v-btn>
+            <v-btn
+                class="table__btn"
+                elevation="0"
                 color="#4BB5BC"
             >
               <img :src="require(`@/assets/img/icons/small-eye.svg`)" alt="">

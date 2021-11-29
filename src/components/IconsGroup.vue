@@ -1,18 +1,54 @@
 <template>
-  <v-row class="icons__wrapper">
+  <div>
+  <v-menu
+
+  >
+    <template v-slot:activator="{ on, attrs }">
+  <v-row class="icons__wrapper"
+         v-bind="attrs"
+         v-on="on"
+  >
     <v-btn class="icon-btn px-0 plus"
            :max-width="'32px'"
            :min-width="'32px'"
     >
       <img :src="require(`@/assets/img/icons/plus.svg`)" alt="">
     </v-btn>
-    <v-btn class="icon-btn px-0 gear"
-           :max-width="'32px'"
-           :min-width="'32px'"
-           color="#5E7DEC"
-    >
-      <img :src="require(`@/assets/img/icons/gear-circle.svg`)" alt="">
-    </v-btn>
+<!--    <v-menu-->
+<!--        bottom-->
+<!--        :close-on-content-click="false"-->
+<!--        open-on-click-->
+<!--        class="mt-10"-->
+<!--    >-->
+<!--      <template v-slot:activator="{ on, attrs }">-->
+<!--      <v-btn class="icon-btn px-0 gear"-->
+<!--             :max-width="'32px'"-->
+<!--             :min-width="'32px'"-->
+<!--             color="#5E7DEC"-->
+<!--             v-bind="attrs"-->
+<!--             v-on="on"-->
+<!--      >-->
+<!--        <img :src="require(`@/assets/img/icons/gear-circle.svg`)" alt="">-->
+<!--      </v-btn>-->
+<!--      </template>-->
+<!--      <section-settings />-->
+<!--    </v-menu>-->
+    <div class="dropdown-wrapper">
+            <v-btn class="icon-btn px-0 gear"
+                   :max-width="'32px'"
+                   :min-width="'32px'"
+                   color="#5E7DEC"
+                   v-bind="attrs"
+                   v-on="on"
+                   @click="active = !active"
+            >
+              <img :src="require(`@/assets/img/icons/gear-circle.svg`)" alt="">
+            </v-btn>
+            <section-settings
+              v-if="active"
+              v-click-outside="onClickOutside"
+            />
+    </div>
     <v-btn class="icon-btn px-0 doc"
            :max-width="'32px'"
            :min-width="'32px'"
@@ -35,11 +71,34 @@
       <img :src="require(`@/assets/img/icons/trash.svg`)" alt="">
     </v-btn>
   </v-row>
+    </template>
+  </v-menu>
+  </div>
 </template>
 
 <script>
+import SectionSettings from "./Menus/SectionSettings";
+import {bus} from "../main";
+
 export default {
-  name: "IconsGroup"
+  name: "IconsGroup",
+  components: {SectionSettings},
+  data () {
+    return {
+      active: false
+    }
+  },
+  methods: {
+    onClickOutside() {
+      if (this.active) {
+        this.active = false
+      }
+    },
+    showIcons () {
+      this.active = !this.active
+      bus.$emit('hover:icons',this.active)
+    }
+  }
 }
 </script>
 

@@ -1,5 +1,6 @@
 @import "fonts";
 @import "header/_styles";
+@import "menus";
 
 .fade-enter-active,
 .fade-leave-active {
@@ -56,6 +57,12 @@
           //}
         }
       }
+    }
+  }
+
+  .btns {
+    img {
+      width: 17px;
     }
   }
 
@@ -197,8 +204,10 @@
 
 .icons__wrapper {
   position: absolute;
-  right: -147px;
-  top: 27px;
+  right: -167px;
+  top: 6px;
+  z-index: 3000;
+  padding: 20px 30px;
 }
 
 .bg-active {
@@ -339,7 +348,7 @@
     min-width: 35px;
     width: 35px;
     img {
-      width: 21px;
+      width: 17px;
     }
   }
   .fields__item__value {

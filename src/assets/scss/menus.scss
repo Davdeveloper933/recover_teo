@@ -1,0 +1,71 @@
+.section-settings-menu {
+  position: absolute !important;
+  z-index: 3000;
+  max-width: 311px;
+  padding: 15px 20px !important;
+  top: 30px;
+  left: -30px;
+  &__title {
+    font-weight: 500 !important;
+    font-size: 14px !important;
+    color: #FFFFFF;
+  }
+  & .v-list-item {
+    min-height: fit-content;
+    padding: 0;
+    margin-bottom: 10px;
+  }
+}
+
+.dropdown-wrapper {
+  position: relative;
+}
+
+.icon-btn__wrapper {
+  position: relative;
+}
+
+.custom-switch {
+  width: 40px;
+  &.theme--light.v-input--switch .v-input--switch__track {
+    color: #232532;
+    opacity: 1;
+    width: 40px;
+    height: 22px;
+    top: calc(50% - 12px);
+  }
+  &.theme--light.v-input--switch .v-input--switch__thumb {
+    color: rgba(255, 255, 255, 0.2);
+    width: 18px;
+    height: 18px;
+  }
+  &.v-input--is-label-active.theme--light.v-input--switch .v-input--switch__thumb {
+    color: #FEAC0D !important;
+  }
+  &.v-input--switch--inset.v-input--is-dirty .v-input--switch__thumb {
+    transform: translate(15px, 0) !important;
+  }
+}
+
+.v-input--selection-controls {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.v-input--selection-controls:not(.v-input--hide-details) .v-input__slot {
+  margin-bottom: 0 !important;
+}
+
+.v-application--is-ltr .v-input--selection-controls__input {
+  margin-right: 0 !important;
+}
+
+.theme--light.v-messages {
+  display: none !important;
+}
+
+.v-input--selection-controls__ripple {
+  margin: 0 !important;
+  display: none !important;
+}
+
