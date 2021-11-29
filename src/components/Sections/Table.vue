@@ -42,6 +42,12 @@
             >
               <img :src="require(`@/assets/img/icons/printer.fill.svg`)" alt="">
             </v-btn>
+            <v-btn class="table__btn"
+                   elevation="0"
+                   color="#307BC1"
+            >
+              <img :src="require(`@/assets/img/icons/doc.svg`)" alt="">
+            </v-btn>
             <v-btn
                 class="table__btn"
                 elevation="0"
