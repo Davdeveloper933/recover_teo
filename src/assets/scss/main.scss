@@ -16,6 +16,14 @@
   font-family: 'Avenir Next', sans-serif;
 }
 
+.v-btn {
+  &:hover {
+    color: #FFFFFF !important;
+    background-color: #FEAC0D !important;
+    transition: .3s ease-in-out;
+  }
+}
+
   .v-main {
     background: #3C3F4F;
   }
@@ -336,14 +344,14 @@
   }
   .section__top-buttons .v-btn.add-button {
     padding: 15px 20px 15px 25px;
-    margin-right: 8px;
+    margin-right: 15px;
   }
   .section__top-buttons .v-btn.generate-button {
     padding: 15px 17px;
   }
   .section__top-buttons .v-btn.eye-button {
     padding: 15px 6px;
-    margin-left: 8px;
+    margin-left: 15px;
     //height: 40px;
     min-width: 35px;
     width: 35px;

@@ -60,11 +60,30 @@
       </v-dialog>
       <v-btn
           class="white--text generate-button btns"
-          color="#FEAC0D"
+          color="#3C3F4F"
           elevation="0"
       >
         Сгенерировать
       </v-btn>
+      <div
+          class="dropdown-wrapper"
+          @mouseleave="active = false"
+          @mouseover="active = true"
+      >
+        <v-btn
+            class="eye-button btns"
+            color="#3C3F4F"
+            elevation="0"
+        >
+          <img :src="require(`@/assets/img/icons/eye-slash-fill.svg`)" alt="">
+        </v-btn>
+        <transition name="fade">
+        <History
+            v-click-outside="onClickOutside"
+            v-if="active"
+        />
+        </transition>
+      </div>
       <v-btn
           class="eye-button btns"
           color="#3C3F4F"
@@ -77,15 +96,6 @@
           color="#3C3F4F"
           elevation="0"
       >
-        <EyeSVG class="icons" v-if="false"/>
-        <img :src="require(`@/assets/img/icons/eye-slash-fill.svg`)" alt="">
-      </v-btn>
-      <v-btn
-          class="eye-button btns"
-          color="#FEAC0D"
-          elevation="0"
-      >
-        <EyeSVG class="icons" v-if="false"/>
         <img :src="require(`@/assets/img/icons/save.svg`)" alt="">
       </v-btn>
     </v-row>
@@ -96,16 +106,17 @@
 </template>
 
 <script>
-import EyeSVG from "./SVG/EyeSVG";
 import Sections from "./Sections";
 import { mapMutations } from 'vuex'
+import History from "./Menus/History";
 export default {
   name: "SectionPage",
-  components: { Sections, EyeSVG},
+  components: {History, Sections},
   data () {
     return {
       title:null,
-      dialog: false
+      dialog: false,
+      active:false
     }
   },
   methods:{
@@ -125,7 +136,12 @@ export default {
       })
       this.saveSectionsToLocalStorage()
       this.dialog = false
-    }
+    },
+    onClickOutside() {
+      if (this.active) {
+        this.active = false
+      }
+    },
   }
 }
 </script>

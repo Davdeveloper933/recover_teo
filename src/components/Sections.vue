@@ -41,7 +41,7 @@
                   {{ item.section }}
                 </v-list-item-title>
                 <IconsGroup
-                  v-if="isHovered === index"
+                    v-if="isHovered === index"
                 />
               </v-list-item-content>
             </template>

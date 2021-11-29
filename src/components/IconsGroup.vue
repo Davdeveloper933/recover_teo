@@ -33,21 +33,23 @@
 <!--      </template>-->
 <!--      <section-settings />-->
 <!--    </v-menu>-->
-    <div class="dropdown-wrapper">
+    <div class="dropdown-wrapper"
+         @mouseover="active = true"
+         @mouseleave="active = false"
+    >
             <v-btn class="icon-btn px-0 gear"
                    :max-width="'32px'"
                    :min-width="'32px'"
                    color="#5E7DEC"
                    v-bind="attrs"
                    v-on="on"
-                   @click="active = !active"
             >
               <img :src="require(`@/assets/img/icons/gear-circle.svg`)" alt="">
             </v-btn>
-            <section-settings
-              v-if="active"
-              v-click-outside="onClickOutside"
-            />
+      <section-settings
+          v-if="active"
+          v-click-outside="onClickOutside"
+      />
     </div>
     <v-btn class="icon-btn px-0 doc"
            :max-width="'32px'"

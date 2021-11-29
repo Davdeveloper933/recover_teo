@@ -1,4 +1,5 @@
 <template>
+  <div class="section-settings-menu__wrap">
   <v-list
       class="section-settings-menu white--text"
       color="#3C3F4F"
@@ -18,6 +19,7 @@
       ></v-switch>
     </v-list-item>
   </v-list>
+  </div>
 </template>
 
 <script>
