@@ -72,7 +72,7 @@
           </v-dialog>
         </v-col>
     </v-row>
-    <LayoutTest :key="selectedSection.layout.children.length" :selected-section="selectedSection" :selected-index="selectedIndex" />
+    <LayoutTest :key="selectedIndex" :selected-section="selectedSection" :selected-index="selectedIndex" />
   </v-col>
 </template>
 
@@ -102,7 +102,6 @@ export default {
   methods:{
     ...mapMutations(['updateFields','setSelectedItem']),
     addFieldToFields () {
-      // const selectedSection = this.sections.find((item,index) => index === this.selectedIndex)
       const field = {
         component: "Layout",
         props: {
@@ -121,11 +120,7 @@ export default {
         ]
       }
       this.setSelectedItem(this.selectedIndex)
-      this.sections.forEach((section,index) => {
-        if (index === this.selectedIndex) {
-          section.layout.children.push(field)
-        }
-      })
+      this.sections[this.selectedIndex].layout.children.push(field)
       this.updateFields(this.sections)
       this.dialog = false
     }

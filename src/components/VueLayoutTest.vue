@@ -4,6 +4,7 @@
           :config="initialConfig"
           @change:config="onConfigChange"
           :selected-index="selectedIndex"
+          :key="initialConfig.children.length"
       />
   </template>
 

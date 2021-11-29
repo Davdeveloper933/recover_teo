@@ -17,7 +17,7 @@
       >
         <template v-slot:activator="{ on, attrs }">
           <v-btn
-              class="white--text add-button"
+              class="white--text add-button btns"
               color="#3C3F4F"
               elevation="0"
               v-bind="attrs"

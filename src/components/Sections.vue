@@ -55,7 +55,6 @@
         <Fields v-if="showFields === index" :selected-section="sections[index]" :selected-index="index" />
       </transition>
       </v-row>
-      <section-settings v-show="false"/>
     <Table/>
   </v-row>
 </template>
@@ -67,11 +66,10 @@ import IconsGroup from "./IconsGroup";
 import ListSVG from "./SVG/ListSVG";
 import {bus} from "../main";
 import sectionItem from "../../mixins/sectionItem";
-import SectionSettings from "./Menus/SectionSettings";
 
 export default {
   name: "Sections",
-  components: {SectionSettings, Table, Fields, IconsGroup,ListSVG},
+  components: {Table, Fields, IconsGroup,ListSVG},
   // props:{
   //   index:{
   //     type:Number

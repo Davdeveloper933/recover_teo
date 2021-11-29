@@ -108,7 +108,7 @@ export default {
       const sections = this.$store.state.sections
       const newConfig = this.$children[0].getConfig()
       // this.setSelectedItem(this.selectedIndex)
-      sections[this.selectedIndex].layout = newConfig
+      sections[this.selectedIndex].layout = this.$children[0].getConfig()
       this.updateFields(sections)
       console.log(newConfig)
     },
