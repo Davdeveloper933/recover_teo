@@ -49,6 +49,7 @@
       <section-settings
           v-if="active"
           v-click-outside="onClickOutside"
+          :settings="settings"
       />
     </div>
     <v-btn class="icon-btn px-0 doc"
@@ -87,7 +88,45 @@ export default {
   components: {SectionSettings},
   data () {
     return {
-      active: false
+      active: false,
+      settings: [
+        {
+          title: 'Видимость поиска',
+          switch2:false
+        },
+        {
+          title: 'Скрыть кнопку добавить',
+          switch2:false
+        },
+        {
+          title: 'Скрыть кнопку добавить',
+          switch2:false
+        },
+        {
+          title: 'Убрать действия у columns',
+          switch2:false
+        },
+        {
+          title: 'Кнопка добавить в панели',
+          switch2:false
+        },
+        {
+          title: 'Печать',
+          switch2:false
+        },
+        {
+          title: 'Скрыть CRUD',
+          switch2:false
+        },
+        {
+          title: 'Не отображать в меню',
+          switch2:false
+        },
+        {
+          title: 'Копирование строк',
+          switch2:false
+        },
+      ]
     }
   },
   methods: {

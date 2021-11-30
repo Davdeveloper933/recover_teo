@@ -99,6 +99,7 @@ export default {
     Object.keys(this.displayComponents).forEach(name =>
       this.$layoutComposer.registerComponent(name, this.displayComponents[name])
     )
+    console.log('config=',this.config)
   },
   methods: {
     configUpdate(newConfig) {

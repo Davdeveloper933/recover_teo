@@ -100,7 +100,7 @@ export default {
     }
   },
   methods:{
-    ...mapMutations(['updateFields','setSelectedItem']),
+    ...mapMutations(['updateFields','setSelectedItem','saveSectionsToLocalStorage']),
     addFieldToFields () {
       const field = {
         component: "Layout",
