@@ -28,7 +28,7 @@
       </label>
       <v-text-field
           color="#3C3F4F"
-          class="custom-input"
+          class="custom-input pt-0"
           placeholder="Введите"
       >
       </v-text-field>
@@ -42,7 +42,7 @@
           accept="image/png, image/jpeg, image/bmp"
           placeholder="Выберите файл"
           background-color="#3C3F4F"
-          class="custom-file-input"
+          class="custom-file-input pt-0"
           :prepend-icon="''"
       ></v-file-input>
       <span class="no-files-chosen ml-5">Файл не выбран</span>
