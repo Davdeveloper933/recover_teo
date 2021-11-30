@@ -1,3 +1,8 @@
+.v-menu__content.v-menu__content--fixed {
+  top: 0 !important;
+  left: 0 !important;
+}
+
 .section-settings-menu {
   position: absolute !important;
   z-index: 30000;
@@ -32,6 +37,10 @@
 
 .custom-switch {
   width: 34px;
+  &.v-input--switch--inset .v-input--selection-controls__ripple,
+  .v-application--is-ltr .v-input--switch--inset .v-input--switch__thumb{
+    transform: translate(-2px, 0px) !important;
+  }
   &.theme--light.v-input--switch .v-input--switch__track {
     color: #232532;
     opacity: 1;
@@ -43,6 +52,7 @@
     color: rgba(255, 255, 255, 0.2);
     width: 15px;
     height: 15px;
+    transform: translate(-2px, -0.5px) !important;
   }
   &.v-input--is-label-active.theme--light.v-input--switch .v-input--switch__thumb {
     color: #FEAC0D !important;
