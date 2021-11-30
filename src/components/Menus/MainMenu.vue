@@ -37,7 +37,7 @@
       <label class="main-menu__label">
         Лого
       </label>
-      <v-row class="ma-0 pa-0 align-center">
+      <v-row class="ma-0 pa-0 align-baseline">
       <v-file-input
           accept="image/png, image/jpeg, image/bmp"
           placeholder="Выберите файл"
