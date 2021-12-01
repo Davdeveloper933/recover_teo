@@ -320,7 +320,8 @@ export default {
           CELL_PLACEHOLDER_CLASS.replace(/\./, '')
       )
         return
-      ;[...document.querySelectorAll(CELL_PLACEHOLDER_CLASS)].forEach(el =>
+      ;
+      [...document.querySelectorAll(CELL_PLACEHOLDER_CLASS)].forEach(el =>
         el.remove()
       )
       targetEl.style.display = 'none'

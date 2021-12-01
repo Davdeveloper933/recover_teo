@@ -99,17 +99,17 @@ export default {
     Object.keys(this.displayComponents).forEach(name =>
       this.$layoutComposer.registerComponent(name, this.displayComponents[name])
     )
-    console.log('config=',this.config)
   },
   methods: {
     configUpdate(newConfig) {
       this.config = newConfig
     },
     getConfig() {
-      return {
-        ...this.config,
-        children: this.getChildrenConfigurations(),
-      }
+      return this.getChildrenConfigurations()
+      // {
+      //   // ...this.config,
+      //   children: this.getChildrenConfigurations(),
+      // }
     },
     getChildrenConfigurations() {
       return this.config.children.map(child => {

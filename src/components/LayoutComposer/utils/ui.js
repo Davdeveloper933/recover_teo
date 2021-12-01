@@ -22,25 +22,25 @@ const moveCellToPlaceholderPosition = (
   newRoot = document,
   prevRoot = document
 ) => {
-  const $placeholders = [...newRoot.querySelectorAll(PLACEHOLDER_CLASS)]
-  const $otherPlaceholders = $placeholders.slice(1)
+        const $placeholders = [...newRoot.querySelectorAll(PLACEHOLDER_CLASS)]
+        const $otherPlaceholders = $placeholders.slice(1)
 
-  if (!$placeholders.length) return
+        if (!$placeholders.length) return
 
-  const $placeholder = $placeholders[0]
+        const $placeholder = $placeholders[0]
 
-  $otherPlaceholders.forEach($otherPlaceholder => $otherPlaceholder.remove())
+        $otherPlaceholders.forEach($otherPlaceholder => $otherPlaceholder.remove())
 
-  const $cell = prevRoot.querySelector(`[id='${cellId}']`)
+        const $cell = prevRoot.querySelector(`[id='${cellId}']`)
 
-  if (!$cell) return
+        if (!$cell) return
 
-  $cell.style.marginTop = $placeholder.style.marginTop
-  $cell.style.marginLeft = $placeholder.style.marginLeft
+        $cell.style.marginTop = $placeholder.style.marginTop
+        $cell.style.marginLeft = $placeholder.style.marginLeft
 
-  resetLayoutsStyle()
+        resetLayoutsStyle()
 
-  $placeholder.parentNode.insertBefore($cell, $placeholder.nextSibling)
+        $placeholder.parentNode.insertBefore($cell, $placeholder.nextSibling)
 }
 
 const getParentId = $cell => {

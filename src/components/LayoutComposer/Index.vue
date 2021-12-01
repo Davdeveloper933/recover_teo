@@ -11,6 +11,7 @@
       :initial-config="internalConfig"
       v-bind="internalConfig.props"
       :editable="internalEditable"
+      :key="this.$store.state.sections[selectedIndex].layout.children.length"
     />
   </div>
 </template>
@@ -105,12 +106,17 @@ export default {
   methods: {
     ...mapMutations(['setSelectedItem', 'saveFieldPositions', 'updateFields','saveSectionsToLocalStorage']),
     buildConfig() {
-      const sections = this.$store.state.sections
-      const newConfig = this.$children[0].getConfig()
+      // const sections = this.$store.state.sections
+      // const newConfig = this.$children[0].getConfig()
+
+      // sections[this.selectedIndex].layout = this.$children[0].getConfig()
       // this.setSelectedItem(this.selectedIndex)
-      sections[this.selectedIndex].layout = this.$children[0].getConfig()
-      this.saveSectionsToLocalStorage(sections)
-      console.log(newConfig)
+      // this.saveFieldPositions(this.$children[0].getConfig())
+      // this.saveSectionsToLocalStorage(sections)
+      // console.log(this.$children[0].getConfig())
+      // console.log('config=',sections[this.selectedIndex].layout)
+
+      this.$emit('change:config',this.$children[0].getConfig())
     },
   }
 }

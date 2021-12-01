@@ -99,7 +99,7 @@
         <img :src="require(`@/assets/img/icons/save.svg`)" alt="">
       </v-btn>
     </v-row>
-    <Sections :key="this.$store.state.sections.length "/>
+    <Sections :key="sections.length "/>
   </v-col>
   </v-row>
   </v-container>
@@ -119,6 +119,11 @@ export default {
       active:false
     }
   },
+  computed: {
+    sections() {
+         return this.$store.state.sections
+    }
+  },
   methods:{
     ...mapMutations(['add','remove','saveSectionsToLocalStorage']),
     addItem() {
@@ -129,12 +134,13 @@ export default {
         layout: {
           component: "Layout",
           props: {
-            "orientation": "vertical"
+            orientation: "vertical"
           },
           children: []
         }
       })
       this.saveSectionsToLocalStorage()
+      console.log('updated sections',this.sections)
       this.dialog = false
     },
     onClickOutside() {

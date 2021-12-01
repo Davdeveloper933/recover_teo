@@ -21,6 +21,9 @@ export default new Vuex.Store({
       add(state,item) {
           state.sections.push(item)
       },
+      addField(state,field) {
+          state.selectedItem.layout.children.push(field)
+      },
       saveSectionsToLocalStorage(state) {
           localStorage.setItem('sections',JSON.stringify(state.sections))
       },
@@ -29,7 +32,7 @@ export default new Vuex.Store({
           localStorage.setItem('sections',JSON.stringify(state.sections))
       },
       saveFieldPositions(state,config) {
-        state.selectedItem.layout = config
+        state.selectedItem.layout.children = config
         localStorage.setItem('sections',JSON.stringify(state.sections))
       },
       setSelectedItem(state,selectedIndex) {

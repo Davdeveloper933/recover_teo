@@ -96,11 +96,12 @@ export default {
   },
   computed:{
     sections () {
-      return this.$store.state.sections
+      return JSON.parse(localStorage.getItem('sections'))?
+          JSON.parse(localStorage.getItem('sections')):this.$store.state.sections
     }
   },
   methods:{
-    ...mapMutations(['updateFields','setSelectedItem','saveSectionsToLocalStorage']),
+    ...mapMutations(['updateFields','setSelectedItem','saveSectionsToLocalStorage','addField']),
     addFieldToFields () {
       const field = {
         component: "Layout",
@@ -119,8 +120,8 @@ export default {
           }
         ]
       }
-      this.setSelectedItem(this.selectedIndex)
       this.sections[this.selectedIndex].layout.children.push(field)
+      // this.setSelectedItem(this.selectedIndex)
       this.updateFields(this.sections)
       this.dialog = false
     }

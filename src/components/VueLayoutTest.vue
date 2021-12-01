@@ -14,6 +14,7 @@
     import 'vue-layout-composer/dist/vue-layout-composer.css'
 
     import Item from './Item'
+    import {mapMutations} from "vuex";
 
     export default {
       name: 'layoutTest',
@@ -31,13 +32,23 @@
       },
       computed: {
         initialConfig() {
-          const sections = this.$store.state.sections
+          let sections = this.$store.state.sections
+            if(JSON.parse(localStorage.getItem('sections'))) {
+              sections = JSON.parse(localStorage.getItem('sections'))
+              return sections[this.selectedIndex].layout
+            }
             return sections[this.selectedIndex].layout
         }
       },
       methods: {
+        ...mapMutations(['setSelectedItem', 'saveFieldPositions', 'updateFields','saveSectionsToLocalStorage']),
         onConfigChange(newConfig) {
           console.log(newConfig)
+          console.log(this.$store.state.sections)
+          // this.selectedSection.layout.children = newConfig
+          this.setSelectedItem(this.selectedIndex)
+          this.saveFieldPositions(newConfig)
+          this.saveSectionsToLocalStorage()
         },
       },
     }
