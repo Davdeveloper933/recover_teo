@@ -16,5 +16,8 @@ new Vue({
   store,
   vuetify,
   beforeCreate() { this.$store.commit('initialiseStore');},
+  computed: { sections () {
+      return this.$store.state.sections
+    }},
   render: h => h(App)
 }).$mount('#app')

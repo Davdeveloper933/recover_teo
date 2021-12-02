@@ -22,13 +22,13 @@
       </thead>
       <tbody>
       <tr
-          v-for="(item,index) in desserts"
+          v-for="(item,index) in getFieldData"
           :key="index"
       >
-        <td class="table__td">{{ item.name }}</td>
-        <td class="table__td">{{ item.director}}</td>
-        <td class="table__td">{{ item.address}}</td>
-        <td class="table__td" v-if="item.images && item.images.length">
+        <td class="table__td">{{ item.props.content }}</td>
+        <td class="table__td"></td>
+        <td class="table__td"></td>
+        <td class="table__td">
 <!--          <v-row>-->
 <!--            <v-col cols="2" v-for="(img,index) in item.images" :key="index">-->
 <!--              <img :src="require(`@/assets/img/${img}`)" alt="">-->
@@ -79,6 +79,11 @@
 <script>
 export default {
   name: "Table",
+  props: {
+    field: {
+      type:Object
+    }
+  },
   data () {
     return {
       desserts: [
@@ -95,5 +100,22 @@ export default {
       ],
     }
   },
+  created() {
+    this.getFieldData()
+  },
+  computed: {
+  },
+  methods: {
+    getFieldData () {
+      const childrenOfLayoutChildren = this.field.layout.children
+      const currentChildren = childrenOfLayoutChildren.map((child) => child.children)
+      let result = []
+      currentChildren.forEach((children) => {
+        const newItem = children.map(item => item)
+        result.push(newItem)
+      })
+      console.log(result)
+    }
+  }
 }
 </script>

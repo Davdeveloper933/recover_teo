@@ -65,6 +65,13 @@
       >
         Сгенерировать
       </v-btn>
+      <v-btn
+          class="eye-button btns"
+          color="#3C3F4F"
+          elevation="0"
+      >
+        <img :src="require(`@/assets/img/icons/eye-slash-fill.svg`)" alt="">
+      </v-btn>
       <div
           class="dropdown-wrapper"
           @mouseleave="active = false"
@@ -75,7 +82,7 @@
             color="#3C3F4F"
             elevation="0"
         >
-          <img :src="require(`@/assets/img/icons/eye-slash-fill.svg`)" alt="">
+          <img :src="require(`@/assets/img/icons/clock.arrow.svg`)" alt="">
         </v-btn>
         <transition name="fade">
         <History
@@ -84,13 +91,6 @@
         />
         </transition>
       </div>
-      <v-btn
-          class="eye-button btns"
-          color="#3C3F4F"
-          elevation="0"
-      >
-        <img :src="require(`@/assets/img/icons/clock.arrow.svg`)" alt="">
-      </v-btn>
       <v-btn
           class="eye-button btns"
           color="#3C3F4F"
@@ -128,7 +128,6 @@ export default {
     ...mapMutations(['add','remove','saveSectionsToLocalStorage']),
     addItem() {
       this.add({
-        icon:'list.svg',
         section: this.title,
         translation: 'Translation',
         layout: {

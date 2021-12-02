@@ -7,11 +7,12 @@ export default new Vuex.Store({
   state: {
     config: null,
     sections: [],
+    tabs: [],
     selectedItem: null
   },
   mutations: {
       initialiseStore(state) {
-          if (localStorage.getItem('sections')) {
+          if (JSON.parse(localStorage.getItem('sections'))) {
               state.sections = JSON.parse(localStorage.getItem('sections'))
           }
       },
@@ -23,6 +24,12 @@ export default new Vuex.Store({
       },
       addField(state,field) {
           state.selectedItem.layout.children.push(field)
+      },
+      addTab(state,tab) {
+          state.tabs.push(tab)
+      },
+      removeTab(state,index) {
+          state.tabs.splice(index,1)
       },
       saveSectionsToLocalStorage(state) {
           localStorage.setItem('sections',JSON.stringify(state.sections))

@@ -13,40 +13,51 @@
             :close-on-content-click="false"
         >
           <template v-slot:activator="{ on, attrs }">
-        <v-list
-            :key="sections.length"
-            color="transparent"
-            class="pa-0"
-        >
-          <v-list-group
-              v-for="(item,index) in sections"
-              :key="index"
-              class="items__group"
-              active-class="bg-active"
-              @click="sectionIsClicked(index)"
-              v-bind="attrs"
-              v-on="on"
-              @mouseover="isHovered = index"
-              @mouseleave="isHovered = false"
-          >
-            <template
-                v-slot:activator
+            <v-list
+                :key="sections.length"
+                color="transparent"
+                class="pa-0 list-group"
             >
-              <v-list-item-content
-              >
-                <v-list-item-title class="items__title">
+            <draggable
+                :list="sections"
+                :disabled="!enabled"
+                class="list-group"
+                ghost-class="ghost"
+                :move="checkMove"
+                @start="dragging = true"
+                @end="onDragEnd"
+            >
+
+                <v-list-group
+                    v-for="(item,index) in sections"
+                    :key="index"
+                    class="items__group"
+                    active-class="bg-active"
+                    @click="sectionIsClicked(index)"
+                    v-bind="attrs"
+                    v-on="on"
+                    @mouseover="isHovered = index"
+                    @mouseleave="isHovered = false"
+                >
+                  <template
+                      v-slot:activator
+                  >
+                    <v-list-item-content
+                    >
+                      <v-list-item-title class="items__title">
             <span class="mr-2">
               <ListSVG class="items__icon"/>
             </span>
-                  {{ item.section }}
-                </v-list-item-title>
-                <IconsGroup
-                    v-if="isHovered === index"
-                />
-              </v-list-item-content>
-            </template>
-          </v-list-group>
-        </v-list>
+                        {{ item.section }}
+                      </v-list-item-title>
+                      <IconsGroup
+                          v-if="isHovered === index"
+                      />
+                    </v-list-item-content>
+                  </template>
+                </v-list-group>
+            </draggable>
+            </v-list>
           </template>
         </v-menu>
       </v-col>
@@ -55,7 +66,7 @@
         <Fields v-if="showFields === index" :selected-section="sections[index]" :selected-index="index" />
       </transition>
       </v-row>
-    <Table/>
+    <Table :field="sections[index]" :key="index"/>
   </v-row>
 </template>
 
@@ -66,21 +77,20 @@ import IconsGroup from "./IconsGroup";
 import ListSVG from "./SVG/ListSVG";
 import {bus} from "../main";
 import sectionItem from "../../mixins/sectionItem";
+import draggable from "vuedraggable";
+import {mapMutations} from "vuex";
 
 export default {
   name: "Sections",
-  components: {Table, Fields, IconsGroup,ListSVG},
-  // props:{
-  //   index:{
-  //     type:Number
-  //   }
-  // },
+  components: {Table, Fields, IconsGroup,ListSVG,draggable},
   mixins:[sectionItem],
   data () {
     return {
       showFields:false,
       index: null,
-      active:false
+      active:false,
+      dragging: false,
+      enabled: true
     }
   },
   created() {
@@ -95,19 +105,40 @@ export default {
   computed: {
     sections () {
         return this.$store.state.sections
-    }
+    },
+    draggingInfo() {
+      return this.dragging ? "under drag" : "";
+    },
   },
   methods: {
+    ...mapMutations(['updateFields','saveSectionsToLocalStorage']),
     onClickOutside() {
       if (this.isHovered == null) {
         this.isHovered = true
       }
       this.isHovered = false
+    },
+    checkMove: function() {
+      // window.console.log("Future index: " + e.draggedContext.element);
+      // console.log(this.sections)
+      // this.updateFields(this.sections)
+      // this.saveSectionsToLocalStorage()
+    },
+    onDragEnd() {
+      this.dragging = false
+      console.log(this.sections)
+      this.updateFields(this.sections)
+      this.saveSectionsToLocalStorage()
     }
   }
 }
 </script>
 
 <style scoped>
-
+.ghost {
+  opacity: 0.5;
+}
+.items__group {
+  cursor: move !important;
+}
 </style>

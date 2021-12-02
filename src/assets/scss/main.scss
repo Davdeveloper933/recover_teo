@@ -12,6 +12,8 @@
   opacity: 0;
 }
 
+
+
 .v-application {
   font-family: 'Avenir Next', sans-serif;
 }
@@ -91,6 +93,7 @@
       font-size: 15px;
     }
     &__group {
+      cursor: move !important;
       background: #3C3F4F;
       border-radius: 3px;
       &.v-list-group {

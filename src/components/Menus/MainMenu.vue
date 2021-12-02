@@ -15,7 +15,7 @@
       Стартовая страница
       </label>
       <v-select
-          :items="items"
+          :items="sections"
           color="#3C3F4F"
           class="custom-select"
           placeholder="Выберите"
@@ -61,25 +61,38 @@
         <v-text-field
           class="main-menu__tabs__input"
           placeholder="Наименование"
+          v-model="tabTitle"
         ></v-text-field>
         <v-btn
           class="main-menu__tabs__btn"
+          @click="addNewTab"
         >
           <v-icon>mdi-plus</v-icon>
         </v-btn>
       </v-row>
-      <v-row class="align-center main-menu__tabs__list ma-0 justify-space-between">
-        <div class="main-menu__tab mr-3">
-          <span class="main-menu__tab__title">Вкладка 1</span>
+      <v-row class="flex-column ma-0"
+             v-if="tabs.length"
+       >
+      <v-row
+             class="align-center mb-4 main-menu__tabs__list ma-0 justify-space-between"
+             v-for="(tab,index) in tabs"
+             :key="index"
+      >
+        <div
+            class="main-menu__tab mr-3"
+        >
+          <span class="main-menu__tab__title">{{ tab.title }}</span>
         </div>
         <v-btn
             class="main-menu__tabs__btn ma-0"
             color="#EC665E"
+            @click="removeTab(index)"
         >
           <img :src="require(`@/assets/img/icons/trash.svg`)" alt="">
         </v-btn>
       </v-row>
-      <v-row class="align-center mt-6 mb-0 mx-0 pa-0 justify-space-between">
+        </v-row>
+      <v-row class="align-center mt-2 mb-0 mx-0 pa-0 justify-space-between">
         <v-text-field
             class="main-menu__tabs__input"
             placeholder="Раздел"
@@ -92,7 +105,7 @@
       </v-row>
       <v-row class="align-center main-menu__tabs__list ma-0 justify-space-between">
         <v-select
-            :items="items"
+            :items="sections"
             color="#3C3F4F"
             class="custom-select mr-3 mt-0"
             placeholder="Разделы"
@@ -112,6 +125,7 @@
 <script>
 import { mdiMenuDown } from '@mdi/js';
 import SectionSettings from "./SectionSettings";
+import {mapMutations} from "vuex";
 export default {
   name: "MainMenu",
   components: {SectionSettings},
@@ -120,7 +134,7 @@ export default {
       icons: {
         mdiMenuDown
       },
-      items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
+      tabTitle: null,
       settings: [
         {
           title: 'is_i18n',
@@ -159,6 +173,27 @@ export default {
           switch2:false
         },
       ]
+    }
+  },
+  computed: {
+    sections() {
+      return this.$store.state.sections.map((section) => section.section)
+    },
+    tabs () {
+      return this.$store.state.tabs
+    }
+  },
+  methods: {
+    ...mapMutations(['addTab','removeTab']),
+    addNewTab () {
+      if (this.tabTitle) {
+        this.addTab({
+          title: this.tabTitle
+        })
+      }
+    },
+    removeTab (index) {
+      this.$store.commit('removeTab',index)
     }
   }
 }
