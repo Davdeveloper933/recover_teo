@@ -66,7 +66,7 @@
         <Fields v-if="showFields === index" :selected-section="sections[index]" :selected-index="index" />
       </transition>
       </v-row>
-    <Table :field="sections[index]" :key="index"/>
+    <Table :key="index" :selected-index="index"/>
   </v-row>
 </template>
 

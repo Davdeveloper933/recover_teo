@@ -11,7 +11,6 @@
       :initial-config="internalConfig"
       v-bind="internalConfig.props"
       :editable="internalEditable"
-      :key="this.$store.state.sections[selectedIndex].layout.children.length"
     />
   </div>
 </template>

@@ -101,7 +101,7 @@ export default {
     }
   },
   methods:{
-    ...mapMutations(['updateFields','setSelectedItem','saveSectionsToLocalStorage','addField']),
+    ...mapMutations(['updateFields','setSelectedItem','saveSectionsToLocalStorage','addField','addFieldsOfCurrentSection']),
     addFieldToFields () {
       const field = {
         component: "Layout",
@@ -120,8 +120,14 @@ export default {
           }
         ]
       }
+      const currentField = {
+        id: this.selectedIndex,
+        title: this.title
+      }
+      this.addFieldsOfCurrentSection(currentField)
       this.sections[this.selectedIndex].layout.children.push(field)
-      // this.setSelectedItem(this.selectedIndex)
+      this.setSelectedItem(this.selectedIndex)
+      // this.addField(field)
       this.updateFields(this.sections)
       this.dialog = false
     }

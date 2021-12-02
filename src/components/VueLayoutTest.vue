@@ -4,7 +4,7 @@
           :config="initialConfig"
           @change:config="onConfigChange"
           :selected-index="selectedIndex"
-          :key="initialConfig.children.length"
+          :key="selectedIndex"
       />
   </template>
 
@@ -33,10 +33,6 @@
       computed: {
         initialConfig() {
           let sections = this.$store.state.sections
-            if(JSON.parse(localStorage.getItem('sections'))) {
-              sections = JSON.parse(localStorage.getItem('sections'))
-              return sections[this.selectedIndex].layout
-            }
             return sections[this.selectedIndex].layout
         }
       },

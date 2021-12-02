@@ -105,11 +105,11 @@ export default {
       this.config = newConfig
     },
     getConfig() {
-      return this.getChildrenConfigurations()
-      // {
-      //   // ...this.config,
-      //   children: this.getChildrenConfigurations(),
-      // }
+      // return this.getChildrenConfigurations()
+      return {
+        ...this.config,
+        children: this.getChildrenConfigurations()
+      }
     },
     getChildrenConfigurations() {
       return this.config.children.map(child => {

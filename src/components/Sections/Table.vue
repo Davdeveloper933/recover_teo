@@ -25,7 +25,7 @@
           v-for="(item,index) in getFieldData"
           :key="index"
       >
-        <td class="table__td">{{ item.props.content }}</td>
+        <td class="table__td">{{ item.title }}</td>
         <td class="table__td"></td>
         <td class="table__td"></td>
         <td class="table__td">
@@ -82,6 +82,9 @@ export default {
   props: {
     field: {
       type:Object
+    },
+    selectedIndex:{
+      type: Number
     }
   },
   data () {
@@ -101,21 +104,18 @@ export default {
     }
   },
   created() {
-    this.getFieldData()
+
   },
   computed: {
+    getFieldData () {
+      const fields = this.$store.state.fields
+      const currentFields = fields.filter((field) => field.id === this.selectedIndex)
+      console.log(currentFields)
+      return currentFields
+    }
   },
   methods: {
-    getFieldData () {
-      const childrenOfLayoutChildren = this.field.layout.children
-      const currentChildren = childrenOfLayoutChildren.map((child) => child.children)
-      let result = []
-      currentChildren.forEach((children) => {
-        const newItem = children.map(item => item)
-        result.push(newItem)
-      })
-      console.log(result)
-    }
+
   }
 }
 </script>

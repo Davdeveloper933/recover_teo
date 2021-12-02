@@ -8,12 +8,16 @@ export default new Vuex.Store({
     config: null,
     sections: [],
     tabs: [],
+    fields:[],
     selectedItem: null
   },
   mutations: {
       initialiseStore(state) {
           if (JSON.parse(localStorage.getItem('sections'))) {
               state.sections = JSON.parse(localStorage.getItem('sections'))
+          }
+          if (JSON.parse(localStorage.getItem('fields'))) {
+              state.sections = JSON.parse(localStorage.getItem('fields'))
           }
       },
       remove(state,index) {
@@ -45,6 +49,10 @@ export default new Vuex.Store({
       setSelectedItem(state,selectedIndex) {
           // state.selectedItem = state.sections.find((item,index) => index === selectedIndex)
           state.selectedItem = state.sections[selectedIndex]
+      },
+      addFieldsOfCurrentSection (state,field) {
+          state.fields.push(field)
+          localStorage.setItem('fields',JSON.stringify(state.fields))
       }
   },
   actions: {
