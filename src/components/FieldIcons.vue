@@ -1,12 +1,5 @@
 <template>
- <v-row class="ma-0 ml-4 group-of-field-icons">
-<!--   <v-btn class="icon-btn px-0 trash"-->
-<!--          :max-width="'30px'"-->
-<!--          :min-width="'30px'"-->
-<!--          color="#68B5D4"-->
-<!--   >-->
-<!--     <img :src="require(`@/assets/img/icons/edit.svg`)" alt="">-->
-<!--   </v-btn>-->
+ <v-row class="ma-0 justify-end group-of-field-icons">
    <v-btn class="icon-btn px-0 gear"
           :max-width="'30px'"
           :min-width="'30px'"
@@ -14,7 +7,7 @@
    >
      <img :src="require(`@/assets/img/icons/gear-circle.svg`)" alt="">
    </v-btn>
-   <v-btn class="icon-btn px-0 trash"
+   <v-btn class="icon-btn px-0 trash mr-0"
           :max-width="'30px'"
           :min-width="'30px'"
           color="#EC665E"

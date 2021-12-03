@@ -9,12 +9,13 @@
 <!--      {{ content }}-->
 <!--    </div>-->
     <v-row
-        class="fields__item align-center white--text mx-0 mt-0"
+        class="fields__item justify-space-between align-center white--text mx-0 mt-0"
         @click="onClick"
         @mouseover="hovered = true"
         @mouseleave="hovered = false"
         ref="block"
     >
+      <div class="d-flex">
       <div>
         <img :src="require(`@/assets/img/icons/list.svg`)" alt="">
       </div>
@@ -22,6 +23,7 @@
        {{ content }}
         <span class="fields__item__translation">(Name)</span>
       </h3>
+      </div>
       <transition name="fade">
       <FieldIcons v-if="hovered"/>
       </transition>

@@ -284,7 +284,7 @@
   &__item {
     background: #232532;
     border-radius: 3px;
-    padding: 15px;
+    padding: 10px;
     margin-bottom: 2px;
     cursor: pointer;
     &:hover {
@@ -328,9 +328,10 @@
 }
 
 .group-of-field-icons {
-  position: absolute;
-  left: 190px;
+  position: relative;
+  //left: 190px;
   z-index: 1000;
+  flex: initial;
 }
 
 .Layout {
