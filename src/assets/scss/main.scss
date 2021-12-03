@@ -22,7 +22,7 @@
 //}
 .slide-fade-enter, .slide-fade-leave-to
   /* .slide-fade-leave-active до версии 2.1.8 */ {
-  transform: translateX(100px);
+  transform: translateX(300px);
   //opacity: 0;
   transition: all .3s ease-in-out;
 }
@@ -336,6 +336,12 @@
 
 .Layout {
   min-height: fit-content;
+}
+
+@media (min-width: 1441px) {
+  .icons__wrapper {
+    right: -198px;
+  }
 }
 
 @media (min-width: 1904px) {

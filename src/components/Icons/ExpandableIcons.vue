@@ -1,6 +1,6 @@
 <template>
     <v-row
-        class="expandable-icons ma-0 d-inline-flex flex-nowrap justify-center"
+        class="expandable-icons ma-0 flex-nowrap justify-center"
     >
       <v-btn
           class="fields__btn icon-btn px-0"

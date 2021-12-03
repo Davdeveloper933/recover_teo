@@ -96,14 +96,20 @@
         <v-text-field
             class="main-menu__tabs__input"
             placeholder="Раздел"
+            v-model="selectTitle"
         ></v-text-field>
         <v-btn
             class="main-menu__tabs__btn"
+            @click="addNewSelect"
         >
           <v-icon>mdi-plus</v-icon>
         </v-btn>
       </v-row>
-      <v-row class="align-center main-menu__tabs__list ma-0 justify-space-between">
+      <v-row
+          class="align-center mb-4 main-menu__tabs__list ma-0 justify-space-between"
+          v-for="(tab,index) in tabSelects"
+          :key="index"
+      >
         <v-select
             :items="sections"
             color="#3C3F4F"
@@ -114,6 +120,7 @@
         <v-btn
             class="main-menu__tabs__btn ma-0"
             color="#EC665E"
+            @click="removeTabSelect(index)"
         >
           <img :src="require(`@/assets/img/icons/trash.svg`)" alt="">
         </v-btn>
@@ -135,6 +142,7 @@ export default {
         mdiMenuDown
       },
       tabTitle: null,
+      selectTitle: null,
       settings: [
         {
           title: 'is_i18n',
@@ -185,10 +193,13 @@ export default {
     },
     tabs () {
       return this.$store.state.tabs
+    },
+    tabSelects () {
+      return this.$store.state.tabSelects
     }
   },
   methods: {
-    ...mapMutations(['addTab','removeTab']),
+    ...mapMutations(['addTab','removeTab','addTabSelect','removeTabSelect']),
     addNewTab () {
       if (this.tabTitle) {
         this.addTab({
@@ -198,7 +209,15 @@ export default {
     },
     removeTab (index) {
       this.$store.commit('removeTab',index)
-    }
+    },
+    addNewSelect () {
+      if (this.selectTitle) {
+        this.addTabSelect('select')
+      }
+    },
+    removeTabSelect (index) {
+      this.$store.commit('removeTabSelect',index)
+    },
   }
 }
 </script>

@@ -42,6 +42,7 @@
                       v-slot:activator
                   >
                     <v-list-item-content
+
                     >
                       <v-list-item-title class="items__title">
             <span class="mr-2">

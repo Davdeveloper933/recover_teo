@@ -8,6 +8,7 @@ export default new Vuex.Store({
     config: null,
     sections: [],
     tabs: [],
+    tabSelects: [],
     fields:[],
     selectedItem: null
   },
@@ -36,6 +37,12 @@ export default new Vuex.Store({
       },
       removeTab(state,index) {
           state.tabs.splice(index,1)
+      },
+      addTabSelect(state,tab) {
+          state.tabSelects.push(tab)
+      },
+      removeTabSelect(state,index) {
+          state.tabSelects.splice(index,1)
       },
       saveSectionsToLocalStorage(state) {
           localStorage.setItem('sections',JSON.stringify(state.sections))

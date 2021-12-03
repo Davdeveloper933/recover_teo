@@ -22,6 +22,7 @@
               @click="expandIcons = !expandIcons"
               :min-width="'10px'"
               :width="'10px'"
+              v-click-outside="clickOutside"
           >
           <img :src="require(`@/assets/img/icons/chevron.backward.svg`)"
                class="icons"
@@ -31,6 +32,7 @@
           </v-btn>
           <div
               class="overflow-hidden"
+              style="line-height: 0;display: inline-table;"
           >
           <transition name="slide-fade">
               <ExpandableIcons v-if="expandIcons" class="mr-2" />
@@ -148,6 +150,9 @@ export default {
       // this.addField(field)
       this.updateFields(this.sections)
       this.dialog = false
+    },
+    clickOutside () {
+      this.expandIcons = false
     }
   }
 }

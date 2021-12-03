@@ -2,67 +2,72 @@
   <v-container>
   <v-simple-table
       class="table"
+      v-if="getFieldData && getFieldData.length"
   >
     <template v-slot:default>
-      <thead>
-      <tr>
-        <th class="text-left table__th">
-          Название
-        </th>
-        <th class="text-left table__th">
-          Директор
-        </th>
-        <th class="text-left table__th">
-          Адрес
-        </th>
-        <th class="text-left table__th">
-          Действия
-        </th>
-      </tr>
-      </thead>
+<!--      <thead>-->
+<!--      <tr>-->
+<!--        <th class="text-left table__th">-->
+<!--          Название-->
+<!--        </th>-->
+<!--        <th class="text-left table__th">-->
+<!--          Директор-->
+<!--        </th>-->
+<!--        <th class="text-left table__th">-->
+<!--          Адрес-->
+<!--        </th>-->
+<!--        <th class="text-left table__th">-->
+<!--          Действия-->
+<!--        </th>-->
+<!--      </tr>-->
+<!--      </thead>-->
       <tbody>
       <tr
-          v-for="(item,index) in getFieldData"
-          :key="index"
+          class="d-flex align-end"
       >
-        <td class="table__td">{{ item.title }}</td>
-        <td class="table__td"></td>
-        <td class="table__td"></td>
-        <td class="table__td">
+        <td
+            class="table__td d-flex align-center"
+            v-for="(item,index) in getFieldData"
+            :key="index"
+        >
+          {{ item.title }}
+        </td>
+        <v-spacer></v-spacer>
+        <td class="d-flex align-center">
           <v-row>
-            <v-btn
-                class="table__btn"
-                elevation="0"
-                color="#FEAC0D"
-            >
-              <img :src="require(`@/assets/img/icons/printer.fill.svg`)" alt="">
-            </v-btn>
-            <v-btn class="table__btn"
-                   elevation="0"
-                   color="#307BC1"
-            >
-              <img :src="require(`@/assets/img/icons/doc.svg`)" alt="">
-            </v-btn>
-            <v-btn
-                class="table__btn"
-                elevation="0"
-                color="#4BB5BC"
-            >
-              <img :src="require(`@/assets/img/icons/small-eye.svg`)" alt="">
-            </v-btn>
-            <v-btn
-                class="table__btn"
-                color="#4B78BC"
-            >
-              <img :src="require(`@/assets/img/icons/edit.svg`)" alt="">
-            </v-btn>
-            <v-btn
-                class="table__btn"
-                color="#BC4B4B"
-            >
-              <img :src="require(`@/assets/img/icons/trash.svg`)" alt="">
-            </v-btn>
-          </v-row>
+          <v-btn
+              class="table__btn"
+              elevation="0"
+              color="#FEAC0D"
+          >
+            <img :src="require(`@/assets/img/icons/printer.fill.svg`)" alt="">
+          </v-btn>
+          <v-btn class="table__btn"
+                 elevation="0"
+                 color="#307BC1"
+          >
+            <img :src="require(`@/assets/img/icons/doc.svg`)" alt="">
+          </v-btn>
+          <v-btn
+              class="table__btn"
+              elevation="0"
+              color="#4BB5BC"
+          >
+            <img :src="require(`@/assets/img/icons/small-eye.svg`)" alt="">
+          </v-btn>
+          <v-btn
+              class="table__btn"
+              color="#4B78BC"
+          >
+            <img :src="require(`@/assets/img/icons/edit.svg`)" alt="">
+          </v-btn>
+          <v-btn
+              class="table__btn"
+              color="#BC4B4B"
+          >
+            <img :src="require(`@/assets/img/icons/trash.svg`)" alt="">
+          </v-btn>
+        </v-row>
         </td>
       </tr>
       </tbody>
