@@ -111,7 +111,7 @@
           :key="index"
       >
         <v-select
-            :items="sections"
+            :items="['item1','item2']"
             color="#3C3F4F"
             class="custom-select mr-3 mt-0"
             placeholder="Разделы"
