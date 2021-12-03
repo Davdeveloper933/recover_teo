@@ -16,8 +16,10 @@ export default new Vuex.Store({
           if (JSON.parse(localStorage.getItem('sections'))) {
               state.sections = JSON.parse(localStorage.getItem('sections'))
           }
+      },
+      initialiseFields(state) {
           if (JSON.parse(localStorage.getItem('fields'))) {
-              state.sections = JSON.parse(localStorage.getItem('fields'))
+              state.fields = JSON.parse(localStorage.getItem('fields'))
           }
       },
       remove(state,index) {

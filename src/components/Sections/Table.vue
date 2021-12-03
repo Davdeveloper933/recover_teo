@@ -29,11 +29,6 @@
         <td class="table__td"></td>
         <td class="table__td"></td>
         <td class="table__td">
-<!--          <v-row>-->
-<!--            <v-col cols="2" v-for="(img,index) in item.images" :key="index">-->
-<!--              <img :src="require(`@/assets/img/${img}`)" alt="">-->
-<!--            </v-col>-->
-<!--          </v-row>-->
           <v-row>
             <v-btn
                 class="table__btn"
@@ -109,8 +104,12 @@ export default {
   computed: {
     getFieldData () {
       const fields = this.$store.state.fields
-      const currentFields = fields.filter((field) => field.id === this.selectedIndex)
-      console.log(currentFields)
+      const currentSection = this.$store.state.sections[this.selectedIndex]
+      let currentFields
+      if (currentSection) {
+        currentFields = fields.filter((field) => field.id === currentSection.id)
+        console.log(currentSection.id)
+      }
       return currentFields
     }
   },

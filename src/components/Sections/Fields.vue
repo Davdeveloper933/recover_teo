@@ -1,6 +1,6 @@
 <template>
   <v-col class="fields pt-4">
-    <v-row color="#3C3F4F" class="pb-4 justify-space-between align-baseline">
+    <v-row color="#3C3F4F" class="pb-4 justify-space-between align-center">
 <!--      <v-row class="d-flex justify-space-between">-->
 <!--        <v-col cols="24">-->
             <v-col class="d-flex align-center">
@@ -12,14 +12,30 @@
             </v-col>
 <!--        </v-col>-->
         <v-spacer></v-spacer>
-        <v-col class="col-xl-2 d-flex justify-end">
+        <v-col
+            class="col-xl-2 d-flex justify-end align-start"
+        >
           <v-btn
               color="transparent"
               elevation="0"
               class="fields__btn icon-btn chevron"
+              @click="expandIcons = !expandIcons"
+              :min-width="'10px'"
+              :width="'10px'"
           >
-          <img :src="require(`@/assets/img/icons/chevron.backward.svg`)" class="icons" alt="arrow-left">
+          <img :src="require(`@/assets/img/icons/chevron.backward.svg`)"
+               class="icons"
+               alt="arrow-left"
+               :class="{'rotated': expandIcons}"
+          >
           </v-btn>
+          <div
+              class="overflow-hidden"
+          >
+          <transition name="slide-fade">
+              <ExpandableIcons v-if="expandIcons" class="mr-2" />
+          </transition>
+          </div>
           <v-btn
               class="fields__btn icon-btn px-0"
               elevation="0"
@@ -80,10 +96,11 @@
 import { mdiFormatListBulleted } from '@mdi/js';
 import LayoutTest from "../VueLayoutTest";
 import {mapMutations} from "vuex";
+import ExpandableIcons from "../Icons/ExpandableIcons";
 
 export default {
   name: "Fields",
-  components: {LayoutTest},
+  components: {ExpandableIcons, LayoutTest},
   props:['selectedSection','selectedIndex'],
   data () {
     return {
@@ -91,7 +108,8 @@ export default {
       icons: {
         mdiFormatListBulleted
       },
-      title: null
+      title: null,
+      expandIcons:false
     }
   },
   computed:{
@@ -121,7 +139,7 @@ export default {
         ]
       }
       const currentField = {
-        id: this.selectedIndex,
+        id: this.selectedSection.id,
         title: this.title
       }
       this.addFieldsOfCurrentSection(currentField)

@@ -1,5 +1,5 @@
 <template>
-  <div class="main-menu">
+  <div class="main-menu" ref="main_menu">
     <v-row class="justify-space-between align-center mb-6">
       <h2 class="main-menu__title">Настройки</h2>
       <v-btn
@@ -174,6 +174,10 @@ export default {
         },
       ]
     }
+  },
+  mounted() {
+    this.$parent.$el.classList.add('main-menu-position')
+    console.log(this.$parent.$el)
   },
   computed: {
     sections() {

@@ -27,7 +27,6 @@
                 @start="dragging = true"
                 @end="onDragEnd"
             >
-
                 <v-list-group
                     v-for="(item,index) in sections"
                     :key="index"

@@ -4,6 +4,7 @@
       open-on-click
       right
       :close-on-content-click="false"
+      :absolute="false"
   >
     <template v-slot:activator="{ on, attrs }">
  <v-btn

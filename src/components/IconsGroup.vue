@@ -1,7 +1,6 @@
 <template>
   <div>
   <v-menu
-
   >
     <template v-slot:activator="{ on, attrs }">
   <v-row class="icons__wrapper"

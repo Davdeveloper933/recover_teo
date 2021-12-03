@@ -114,7 +114,7 @@ export default {
       // this.saveSectionsToLocalStorage(sections)
       // console.log(this.$children[0].getConfig())
       // console.log('config=',sections[this.selectedIndex].layout)
-
+      this.internalEditable = !this.internalEditable
       this.$emit('change:config',this.$children[0].getConfig())
     },
   }

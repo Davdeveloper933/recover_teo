@@ -15,9 +15,9 @@ new Vue({
   router,
   store,
   vuetify,
-  beforeCreate() { this.$store.commit('initialiseStore');},
-  computed: { sections () {
-      return this.$store.state.sections
-    }},
+  beforeCreate() {
+    this.$store.commit('initialiseStore')
+    this.$store.commit('initialiseFields')
+    },
   render: h => h(App)
 }).$mount('#app')

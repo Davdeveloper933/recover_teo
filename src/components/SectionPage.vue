@@ -129,6 +129,7 @@ export default {
     addItem() {
       this.add({
         section: this.title,
+        id: Math.ceil(Math.random()*1000000),
         translation: 'Translation',
         layout: {
           component: "Layout",
