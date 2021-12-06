@@ -1,5 +1,6 @@
-.v-dialog__content {
+.v-dialog--active {
   height: fit-content;
+  overflow: auto;
 }
 
 .create-section-modal {
