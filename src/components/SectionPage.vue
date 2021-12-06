@@ -41,13 +41,6 @@
       >
         Сгенерировать
       </v-btn>
-      <v-btn
-          class="eye-button btns"
-          color="#3C3F4F"
-          elevation="0"
-      >
-        <img :src="require(`@/assets/img/icons/eye-slash-fill.svg`)" alt="">
-      </v-btn>
       <div
           class="dropdown-wrapper"
           @mouseleave="active = false"

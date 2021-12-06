@@ -22,7 +22,7 @@
       Сохранить
     </v-btn>
   </v-row>
-    <v-row class="align-baseline justify-space-between mx-0">
+    <v-row class="justify-space-between mx-0">
       <v-col class="col-8 px-0">
         <v-row class="align-center mb-5 justify-space-between mx-0">
       <v-col class="flex-column col-6 px-0">
@@ -65,10 +65,10 @@
                   v-for="index in modulesToShow.column1"
                   :key="index"
               >
-                <span>{{ modules.column1[index-1] }}</span>
+                <span>{{ modules.column1[index-1].title }}</span>
                 <v-switch
                     class="custom-switch"
-                    v-model="switch2"
+                    v-model="modules.column1[index-1].switch"
                     inset
                     color="#232532"
                 ></v-switch>
@@ -80,10 +80,10 @@
                   v-for="index in modulesToShow.column2"
                   :key="index"
               >
-                <span>{{ modules.column2[index-1] }}</span>
+                <span>{{ modules.column2[index-1].title }}</span>
                 <v-switch
                     class="custom-switch"
-                    v-model="switch2"
+                    v-model="modules.column2[index-1].switch"
                     inset
                     color="#232532"
                 ></v-switch>
@@ -95,10 +95,10 @@
                   v-for="index in modulesToShow.column3"
                   :key="index"
               >
-                <span>{{ modules.column3[index-1] }}</span>
+                <span>{{ modules.column3[index-1].title }}</span>
                 <v-switch
                     class="custom-switch"
-                    v-model="switch2"
+                    v-model="modules.column3[index-1].switch"
                     inset
                     color="#232532"
                 ></v-switch>
@@ -110,10 +110,30 @@
       </v-col>
       <v-col class="col-4 px-0">
         <div
-            class="d-flex flex-column align-center create-section-modal__localization__wrap"
+            class="d-flex justify-end align-center create-section-modal__localization__wrap"
             :class="{ 'expand-btn-collapsed': !isOpenA }"
         >
-        <div class="localization-block"
+          <div
+              class="expand-btn-expanded ml-2 mr-3"
+              v-if="isOpenA"
+              @click="isOpenA = !isOpenA"
+          >
+            <chevron-compact-s-v-g/>
+          </div>
+          <div
+              class="mr-2"
+              v-if="!isOpenA"
+          >
+            <chevron-compact-s-v-g/>
+          </div>
+          <div
+              class="expand-btn-collapsed__text"
+              v-if="!isOpenA"
+              @click="isOpenA = !isOpenA"
+          >
+            <span>Вкладки</span>
+          </div>
+        <div class="pa-0 localization-block"
              :class="{'expanded': isOpenA}"
         >
         <div class="mb-5">
@@ -168,34 +188,15 @@
           </v-col>
         </v-row>
         </div>
-          <div
-              class="expand-btn-expanded ml-2 mr-3"
-              v-if="isOpenA"
-              @click="isOpenA = !isOpenA"
-          >
-            <chevron-compact-s-v-g/>
-          </div>
-          <div
-              class="expand-btn-collapsed__text"
-              v-if="!isOpenA"
-              @click="isOpenA = !isOpenA"
-          >
-            <span>Вкладки</span>
-          </div>
-          <div
-              class="mr-2"
-              v-if="!isOpenA"
-          >
-            <chevron-compact-s-v-g/>
-          </div>
         </div>
       </v-col>
     </v-row>
-    <v-row class="mb-5 ma-0 j align-center show-more-btn__wrapper"
+    <v-row class="ma-0 j align-center show-more-btn__wrapper"
+           :class="{'mt-8': isOpenA}"
            v-click-outside="onClickOutside"
     >
       <v-col class="pa-0 col-8">
-        <div class="align-center d-flex justify-center">
+        <div class="mt-4 align-center d-flex justify-center">
       <v-btn
           class="show-more-btn align-center"
           color="transparent"
@@ -218,7 +219,7 @@
         </div>
       </v-col>
     </v-row>
-    <h2 class="create-section-modal__subtitle mb-2">Добавить масово поля</h2>
+    <h2 class="create-section-modal__subtitle mt-10 mb-2">Добавить масово поля</h2>
     <v-row class="ma-0 justify-space-between">
       <v-col class="modules py-0 pl-0 col-8">
         <v-row
@@ -256,7 +257,7 @@
           </v-col>
           <v-col class="col-md-5 col-xl-6 pl-4 pa-0">
             <h2 class="create-section-modal__subtitle mb-2">Создать поле</h2>
-            <div class="empty-area"></div>
+            <textarea class="empty-area white--text d-block"></textarea>
             <v-row class="ma-0 mt-4">
               <v-col class="col-md-5 col-xl-4 pa-0">
                 <v-row
@@ -328,12 +329,17 @@
   <!--          <v-col class="pa-0 col-1">-->
               <v-btn
                   class="create-section-modal__btn mb-4"
+                  @click="addTab"
               >
                 <v-icon>mdi-plus</v-icon>
               </v-btn>
   <!--          </v-col>-->
           </v-row>
-          <v-row class="ma-0 justify-space-between align-center flex-nowrap">
+          <v-row
+              class="mb-2 ma-0 justify-space-between align-center flex-nowrap"
+              v-for="(tab,index) in tabs"
+              :key="index"
+          >
   <!--          <v-col class="pa-0 col-11">-->
               <v-row class="mr-2 ma-0 justify-space-between align-center">
                 <v-col class="col-6 pr-2 pa-0">
@@ -341,6 +347,7 @@
                       color="#232532"
                       class="create-section-modal__tabs__input pt-0"
                       placeholder="Введите"
+                      v-model="nameInEnglish"
                   >
                   </v-text-field>
                 </v-col>
@@ -349,6 +356,7 @@
                       color="#232532"
                       class="create-section-modal__tabs__input pt-0"
                       placeholder="Введите"
+                      v-model="nameInRussian"
                   >
                   </v-text-field>
                 </v-col>
@@ -356,6 +364,7 @@
             <v-btn
                 class="create-section-modal__btn ma-0"
                 color="#EC665E"
+                @click="removeTab(index)"
             >
               <img :src="require(`@/assets/img/icons/trash.svg`)" alt="">
             </v-btn>
@@ -380,9 +389,11 @@ export default {
   data () {
     return {
       items: ['item1','item2','item3'],
+      tabs: [],
+      nameInRussian: null,
+      nameInEnglish: null,
       isOpenA: false,
       isOpenB: false,
-      switch2:false,
       expanded:false,
       modulesToShow: {
         column1: 3,
@@ -391,35 +402,110 @@ export default {
       },
       modules: {
             column1: [
-              'Модуль Dyna',
-              `Добавить “cheated_at, updated_at”`,
-              'Пустышка',
-              'Свой _columns',
-              'Видимость поиска',
-              'Модуль настроек',
-              'Крыть кнопку добавить',
-              'Свой form',
-               'Справочник'
+              {
+                title: 'Модуль Dyna',
+                switch:false
+              },
+              {
+                title:`Добавить “cheated_at, updated_at”`,
+                switch:false
+              },
+              {
+                title:'Пустышка',
+                switch:false
+              },
+              {
+                title:'Свой _columns',
+                switch:false
+              },
+              {
+                title:'Видимость поиска',
+                switch:false
+              },
+              {
+                title:'Модуль настроек',
+                switch:false
+              },
+              {
+                title:'Крыть кнопку добавить',
+                switch:false
+              },
+              {
+                title:'Свой form',
+                switch:false
+              },
+              {
+                title:'Справочник',
+                switch:false
+              },
             ],
             column2: [
-              'Модуль чата',
-              'Создавать миграцию перед пользованием',
-              'Скрыть панель у таблицы',
-              'Убрать действия у columns',
-              'Большое модальное окно',
-              'Модуль пользователей',
-              'Кнопка добавить в панели',
-              'Страница по каждую компанию'
+              {
+                title:'Модуль чата',
+                switch:false
+              },
+              {
+                title:'Создавать миграцию перед пользованием',
+                switch:false
+              },
+              {
+                title:'Скрыть панель у таблицы',
+                switch:false
+              },
+              {
+                title: 'Убрать действия у columns',
+                switch:false
+              },
+              {
+                title:'Большое модальное окно',
+                switch:false
+              },
+              {
+                title:'Модуль пользователей',
+                switch:false
+              },
+              {
+                title:'Кнопка добавить в панели',
+                switch:false
+              },
+              {
+                title:'Страница по каждую компанию',
+                switch:false
+              },
             ],
             column3: [
-              'Печать',
-              'Редирект во внутрь после создания',
-              'Модуль импорта',
-              'Скрыть CRUD',
-              'Не отображать в меню',
-              'Модуль экспорта',
-              'Копирование строк',
-              'Добавит в API'
+              {
+                title:'Печать',
+                switch:false
+              },
+              {
+                title:'Редирект во внутрь после создания',
+                switch:false
+              },
+              {
+                title:'Модуль импорта',
+                switch:false
+              },
+              {
+                title:'Скрыть CRUD',
+                switch:false
+              },
+              {
+                title:'Не отображать в меню',
+                switch:false
+              },
+              {
+                title:'Модуль экспорта',
+                switch:false
+              },
+              {
+                title:'Копирование строк',
+                switch:false
+              },
+              {
+                title:'Добавит в API',
+                switch:false
+              }
             ]
           },
       addFields: {
@@ -461,6 +547,15 @@ export default {
         this.expanded = false
       }
       this.$emit('click-outside')
+    },
+    addTab() {
+      this.tabs.push({
+        nameInRussian: this.nameInRussian,
+        nameInEnglish: this.nameInEnglish
+      })
+    },
+    removeTab(index) {
+      this.tabs.splice(index,1)
     }
   }
 }
