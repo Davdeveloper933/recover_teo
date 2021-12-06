@@ -207,6 +207,9 @@
 }
 
 .custom-input {
+  input {
+    color: white !important;
+  }
   .v-input__slot {
     margin: 0;
     background-color: #3C3F4F;

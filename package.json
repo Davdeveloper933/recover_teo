@@ -10,6 +10,7 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "@ivanv/vue-collapse-transition": "^1.0.2",
     "@mdi/font": "^6.5.95",
     "@mdi/js": "^6.5.95",
     "@mdi/svg": "^6.5.95",

@@ -13,7 +13,8 @@
       <v-dialog
           v-model="dialog"
           persistent
-          max-width="400"
+          :max-width="'90%'"
+          :width="'90%'"
       >
         <template v-slot:activator="{ on, attrs }">
           <v-btn
@@ -31,32 +32,7 @@
             </v-icon>
           </v-btn>
         </template>
-        <v-card>
-
-          <v-card-title class="text-h5">
-            Добавить раздел
-          </v-card-title>
-          <v-card-text>
-          <v-text-field label="Введите название" v-model="title"></v-text-field>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn
-                color="green darken-1"
-                text
-                @click="dialog = false"
-            >
-              Закрыть
-            </v-btn>
-            <v-btn
-                color="green darken-1"
-                text
-                @click="addItem"
-            >
-              Сохранить
-            </v-btn>
-          </v-card-actions>
-        </v-card>
+          <create-section-modal v-click-outside="dialog = false" />
       </v-dialog>
       <v-btn
           class="white--text generate-button btns"
@@ -109,9 +85,10 @@
 import Sections from "./Sections";
 import { mapMutations } from 'vuex'
 import History from "./Menus/History";
+import CreateSectionModal from "./Modals/CreateSectionModal";
 export default {
   name: "SectionPage",
-  components: {History, Sections},
+  components: {CreateSectionModal, History, Sections},
   data () {
     return {
       title:null,
