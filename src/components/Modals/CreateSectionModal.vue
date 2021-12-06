@@ -8,6 +8,7 @@
         class="white--text back-btn justify-start"
         elevation="0"
         color="transparent"
+        @click="$emit('close-modal')"
     >
       <img :src="require(`@/assets/img/icons/chevron.backward.svg`)" alt="">
       Назад
@@ -379,7 +380,7 @@ export default {
   data () {
     return {
       items: ['item1','item2','item3'],
-      isOpenA: true,
+      isOpenA: false,
       isOpenB: false,
       switch2:false,
       expanded:false,
@@ -453,10 +454,13 @@ export default {
   },
   methods: {
     onClickOutside() {
-      this.modulesToShow.column1 -= this.modules.column1.length-3;
-      this.modulesToShow.column2 -= this.modules.column2.length-3;
-      this.modulesToShow.column3 -= this.modules.column3.length-3;
+      if(this.expanded) {
+        this.modulesToShow.column1 = 3
+        this.modulesToShow.column2 = 3
+        this.modulesToShow.column3 = 3
         this.expanded = false
+      }
+      this.$emit('click-outside')
     }
   }
 }

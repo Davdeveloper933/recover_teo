@@ -32,7 +32,7 @@
             </v-icon>
           </v-btn>
         </template>
-          <create-section-modal v-click-outside="dialog = false" />
+          <create-section-modal @close-modal="closeModal"/>
       </v-dialog>
       <v-btn
           class="white--text generate-button btns"
@@ -62,7 +62,6 @@
         </v-btn>
         <transition name="fade">
         <History
-            v-click-outside="onClickOutside"
             v-if="active"
         />
         </transition>
@@ -120,10 +119,8 @@ export default {
       console.log('updated sections',this.sections)
       this.dialog = false
     },
-    onClickOutside() {
-      if (this.active) {
-        this.active = false
-      }
+    closeModal() {
+      this.dialog = false
     },
   }
 }
