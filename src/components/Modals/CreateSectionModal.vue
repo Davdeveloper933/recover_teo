@@ -22,8 +22,10 @@
       Сохранить
     </v-btn>
   </v-row>
-    <v-row class="justify-space-between mx-0">
-      <v-col class="col-8 px-0">
+<!--    <v-row class="justify-space-between align-center mx-0">-->
+    <div class="d-flex justify-space-between">
+<!--      <v-col class="col-8 px-0">-->
+      <div class="name" :class="{'col-9': isOpenA, 'expanded': !isOpenA}">
         <v-row class="align-center mb-5 justify-space-between mx-0">
       <v-col class="flex-column col-6 px-0">
       <label class="create-section-modal__label create-section-modal__subtitle">
@@ -107,8 +109,10 @@
           </v-row>
         </v-col>
         </v-row>
-      </v-col>
-      <v-col class="col-4 px-0">
+      </div>
+<!--      </v-col>-->
+<!--      <v-col class="col-4 px-0">-->
+      <div>
         <div
             class="d-flex justify-end align-center create-section-modal__localization__wrap"
             :class="{ 'expand-btn-collapsed': !isOpenA }"
@@ -189,8 +193,10 @@
         </v-row>
         </div>
         </div>
-      </v-col>
-    </v-row>
+      </div>
+<!--      </v-col>-->
+<!--    </v-row>-->
+      </div>
     <v-row class="ma-0 j align-center show-more-btn__wrapper"
            :class="{'mt-8': isOpenA}"
            v-click-outside="onClickOutside"
@@ -220,8 +226,9 @@
       </v-col>
     </v-row>
     <h2 class="create-section-modal__subtitle mt-10 mb-2">Добавить масово поля</h2>
-    <v-row class="ma-0 justify-space-between">
-      <v-col class="modules py-0 pl-0 col-8">
+<!--    <v-row class="ma-0">-->
+    <div class="d-flex justify-space-between">
+      <div class="modules py-0 pl-0" :class="{'col-8': isOpenB, 'expanded': !isOpenB}">
         <v-row
             class="ma-0 modules__inner"
         >
@@ -231,10 +238,10 @@
                 v-for="(item,index) in addFields.column1"
                 :key="index"
             >
-              <span>{{ item }}</span>
+              <span>{{ item.title }}</span>
               <v-switch
                   class="custom-switch"
-                  v-model="switch2"
+                  v-model="item.switch"
                   inset
                   color="#232532"
               ></v-switch>
@@ -246,10 +253,10 @@
                 v-for="(item,index) in addFields.column2"
                 :key="index"
             >
-              <span>{{ item }}</span>
+              <span>{{ item.title }}</span>
               <v-switch
                   class="custom-switch"
-                  v-model="switch2"
+                  v-model="item.switch"
                   inset
                   color="#232532"
               ></v-switch>
@@ -266,7 +273,7 @@
                   <span>Пациент</span>
                   <v-switch
                       class="custom-switch"
-                      v-model="switch2"
+                      v-model="switch1"
                       inset
                       color="#232532"
                   ></v-switch>
@@ -286,8 +293,9 @@
             </v-row>
           </v-col>
         </v-row>
-      </v-col>
-      <v-col class="col-4 pa-0">
+      </div>
+<!--      <v-col class="col-4 pa-0">-->
+      <div :class="{'col-4 pa-0': isOpenB}">
         <div
             class="d-flex align-center justify-end create-section-modal__tabs__wrap"
             :class="{ 'expand-btn-collapsed': !isOpenB }"
@@ -347,7 +355,6 @@
                       color="#232532"
                       class="create-section-modal__tabs__input pt-0"
                       placeholder="Введите"
-                      v-model="nameInEnglish"
                   >
                   </v-text-field>
                 </v-col>
@@ -356,7 +363,6 @@
                       color="#232532"
                       class="create-section-modal__tabs__input pt-0"
                       placeholder="Введите"
-                      v-model="nameInRussian"
                   >
                   </v-text-field>
                 </v-col>
@@ -375,8 +381,10 @@
           </v-row>
         </div>
         </div>
-      </v-col>
-    </v-row>
+      </div>
+<!--      </v-col>-->
+<!--    </v-row>-->
+      </div>
   </div>
 </template>
 
@@ -390,6 +398,8 @@ export default {
     return {
       items: ['item1','item2','item3'],
       tabs: [],
+      switch2: false,
+      switch1: false,
       nameInRussian: null,
       nameInEnglish: null,
       isOpenA: false,
@@ -510,26 +520,80 @@ export default {
           },
       addFields: {
         column1: [
-            'Название',
-            'Пациент',
-            'Тип',
-            'Сумма',
-            'Услуга',
-            'Статья',
-            'Проект',
-            'Статус',
-            'Комментарий'
+          {
+            title:'Название',
+            switch:false
+          },
+          {
+            title:'Пациент',
+            switch:false
+          },
+          {
+            title:'Тип',
+            switch:false
+          },
+          {
+            title:'Сумма',
+            switch:false
+          },
+          {
+            title:'Услуга',
+            switch:false
+          },
+          {
+            title:'Статья',
+            switch:false
+          },
+          {
+            title:'Проект',
+            switch:false
+          },
+          {
+            title:'Статус',
+            switch:false
+          },
+          {
+            title:'Комментарий',
+            switch:false
+          }
         ],
         column2: [
-          'Название',
-          'Пациент',
-          'Тип',
-          'Сумма',
-          'Услуга',
-          'Статья',
-          'Проект',
-          'Статус',
-          'Комментарий'
+          {
+            title:'Название',
+            switch:false
+          },
+          {
+            title:'Пациент',
+            switch:false
+          },
+          {
+            title:'Тип',
+            switch:false
+          },
+          {
+            title:'Сумма',
+            switch:false
+          },
+          {
+            title:'Услуга',
+            switch:false
+          },
+          {
+            title:'Статья',
+            switch:false
+          },
+          {
+            title:'Проект',
+            switch:false
+          },
+          {
+            title:'Статус',
+            switch:false
+          },
+          {
+            title:'Комментарий',
+            switch:false
+          }
         ]
       }
     }
@@ -549,10 +613,11 @@ export default {
       this.$emit('click-outside')
     },
     addTab() {
-      this.tabs.push({
-        nameInRussian: this.nameInRussian,
-        nameInEnglish: this.nameInEnglish
-      })
+      const tab = {
+        nameInRussian: '',
+        nameInEnglish: ''
+      }
+      this.tabs.push(tab)
     },
     removeTab(index) {
       this.tabs.splice(index,1)

@@ -13,8 +13,8 @@
       <v-dialog
           v-model="dialog"
           persistent
-          :max-width="'90%'"
-          :width="'90%'"
+          :max-width="'74%'"
+          :width="'100%'"
       >
         <template v-slot:activator="{ on, attrs }">
           <v-btn

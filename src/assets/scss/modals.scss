@@ -185,8 +185,19 @@
   }
 }
 
+.name {
+  &.expanded {
+    flex: 0 0 95.666667%;
+    max-width: 95.666667%;
+  }
+}
+
 .modules {
   position: relative;
+  &.expanded {
+    flex: 0 0 94.666667%;
+    max-width: 94.666667%;
+  }
   &__inner {
     background-color: #3C3F4F;
     border-radius: 3px;
