@@ -61,7 +61,7 @@
 <!--            <v-row class="ma-0 modules__inner__first">-->
             <v-col class="col-4 pr-8 pa-0 modules__item">
               <v-row
-                  class="ma-0 align-center flex-nowrap justify-space-between"
+                  class="mx-0 mt-0 align-center flex-nowrap justify-space-between"
                   v-for="index in modulesToShow.column1"
                   :key="index"
               >
@@ -76,7 +76,7 @@
             </v-col>
             <v-col class="col-4 pr-8 pl-8 pa-0 modules__item">
               <v-row
-                  class="ma-0 align-center flex-nowrap justify-space-between"
+                  class="mx-0 mt-0 align-center flex-nowrap justify-space-between"
                   v-for="index in modulesToShow.column2"
                   :key="index"
               >
@@ -91,7 +91,7 @@
             </v-col>
             <v-col class="col-4 pl-8 pa-0 modules__item">
               <v-row
-                  class="ma-0 align-center flex-nowrap justify-space-between"
+                  class="mx-0 mt-0 align-center flex-nowrap justify-space-between"
                   v-for="index in modulesToShow.column3"
                   :key="index"
               >
@@ -226,7 +226,7 @@
         >
           <v-col class="col-xl-3 pr-4 pa-0 modules__item">
             <v-row
-                class="ma-0 align-center flex-nowrap justify-space-between"
+                class="mx-0 mt-0 align-center flex-nowrap justify-space-between"
                 v-for="(item,index) in addFields.column1"
                 :key="index"
             >
@@ -241,7 +241,7 @@
           </v-col>
           <v-col class="col-xl-3 pl-4 pr-4 pa-0 modules__item">
             <v-row
-                class="ma-0 align-center flex-nowrap justify-space-between"
+                class="mx-0 mt-0 align-center flex-nowrap justify-space-between"
                 v-for="(item,index) in addFields.column2"
                 :key="index"
             >

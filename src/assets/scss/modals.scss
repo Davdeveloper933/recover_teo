@@ -195,6 +195,11 @@
   &__item:not(:nth-child(3)) {
          border-right: 1px solid #232532;
        }
+  &__item {
+    & > div:not(:last-child) {
+      margin-bottom: 6px;
+    }
+  }
 }
 
 .empty-area {
