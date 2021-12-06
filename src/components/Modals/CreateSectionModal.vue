@@ -453,12 +453,10 @@ export default {
   },
   methods: {
     onClickOutside() {
-      if (this.expanded) {
-        this.modulesToShow.column1 = 3
-        this.modulesToShow.column2 = 3
-        this.modulesToShow.column3 = 3
+      this.modulesToShow.column1 -= this.modules.column1.length-3;
+      this.modulesToShow.column2 -= this.modules.column2.length-3;
+      this.modulesToShow.column3 -= this.modules.column3.length-3;
         this.expanded = false
-      }
     }
   }
 }
