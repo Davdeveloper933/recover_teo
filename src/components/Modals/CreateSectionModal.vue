@@ -196,7 +196,7 @@
            v-click-outside="onClickOutside"
     >
       <v-col class="pa-0 col-8">
-        <div class="mt-4 align-center d-flex justify-center">
+        <div class="align-center d-flex justify-center">
       <v-btn
           class="show-more-btn align-center"
           color="transparent"
