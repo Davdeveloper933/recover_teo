@@ -3,10 +3,13 @@
   overflow: auto;
 }
 
-.create-section-modal {
+.create-section-modal,.create-field-modal {
   background-color: #232532 !important;
   padding: 15px 15px;
   font-size: 13px;
+  .v-text-field__details {
+    display: none !important;
+  }
   &__title {
     font-size: 16px;
     font-weight: 600;
@@ -163,7 +166,6 @@
 }
 
 .show-more-btn {
-  position: absolute;
   font-weight: 600;
   font-size: 13px;
   color: #868998 !important;
@@ -229,3 +231,97 @@
     outline: none !important;
   }
 }
+
+.create-field-modal {
+  .field-type {
+    &__btn {
+      font-weight: 600;
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      padding: 10px !important;
+      &::before {
+        background-color: transparent !important;
+        transition: unset;
+        opacity: 0;
+      }
+      &:focus::before {
+        opacity: 0 !important;
+      }
+      &.dropdown-opened {
+        svg {
+          transform: rotate(180deg);
+        }
+      }
+      svg {
+        width: 14px;
+        transform: rotate(0);
+        path {
+          fill: #FFFFFF;
+        }
+      }
+    }
+  }
+}
+
+.name-translate {
+  font-weight: normal;
+  font-size: 13px;
+  color: #5195E1;
+  margin-top: 7px;
+  span {
+    margin-left: 9px;
+  }
+}
+
+.field-type-dropdown {
+  background: #3C3F4F;
+  box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.3);
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  color: #FFFFFF;
+  font-size: 13px;
+  padding:10px 10px 20px 10px;
+  overflow: hidden;
+  position: relative;
+  height: 300px;
+  &__item:not(:last-child) {
+    margin-bottom: 8px;
+  }
+  & > div {
+    overflow: auto;
+    height: 100%;
+  }
+}
+
+.extrasettings-wrap {
+  border-radius: 3px;
+  color: #FFFFFF;
+  .create-section-modal__subtitle {
+    font-weight: 500;
+  }
+  .field-type__btn {
+    font-size: 15px;
+  }
+  .empty-area {
+    height: 80px;
+  }
+}
+
+.extrasettings-panel {
+  background: #3C3F4F;
+  padding: 0;
+  transition: all .3s ease-in-out;
+  height: 0;
+  overflow: hidden;
+  &.expanded {
+    height: 100%;
+    padding: 10px;
+  }
+  .custom-select {
+    .v-select__slot {
+      background-color: #232532 !important;
+    }
+  }
+}
+

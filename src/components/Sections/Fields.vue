@@ -47,7 +47,8 @@
           <v-dialog
               v-model="dialog"
               persistent
-              max-width="400"
+              :max-width="'77%'"
+              :width="'100%'"
           >
             <template v-slot:activator="{ on, attrs }">
               <v-btn
@@ -61,32 +62,7 @@
                 </v-icon>
               </v-btn>
             </template>
-            <v-card>
-
-              <v-card-title class="text-h5">
-                Добавить раздел
-              </v-card-title>
-              <v-card-text>
-                <v-text-field v-model="title" label="Введите название"></v-text-field>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn
-                    color="green darken-1"
-                    text
-                    @click="dialog = false"
-                >
-                  Закрыть
-                </v-btn>
-                <v-btn
-                    color="green darken-1"
-                    text
-                    @click="addFieldToFields"
-                >
-                  Сохранить
-                </v-btn>
-              </v-card-actions>
-            </v-card>
+            <create-field-modal @close-modal="closeModal" />
           </v-dialog>
         </v-col>
     </v-row>
@@ -99,10 +75,11 @@ import { mdiFormatListBulleted } from '@mdi/js';
 import LayoutTest from "../VueLayoutTest";
 import {mapMutations} from "vuex";
 import ExpandableIcons from "../Icons/ExpandableIcons";
+import CreateFieldModal from "../Modals/CreateFieldModal";
 
 export default {
   name: "Fields",
-  components: {ExpandableIcons, LayoutTest},
+  components: {CreateFieldModal, ExpandableIcons, LayoutTest},
   props:['selectedSection','selectedIndex'],
   data () {
     return {
@@ -153,7 +130,10 @@ export default {
     },
     clickOutside () {
       this.expandIcons = false
-    }
+    },
+    closeModal() {
+      this.dialog = false
+    },
   }
 }
 </script>

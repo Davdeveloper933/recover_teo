@@ -135,7 +135,7 @@
               v-if="!isOpenA"
               @click="isOpenA = !isOpenA"
           >
-            <span>Вкладки</span>
+            <span>Опции</span>
           </div>
         <div class="pa-0 localization-block"
              :class="{'expanded': isOpenA}"
