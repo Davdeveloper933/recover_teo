@@ -2,6 +2,7 @@
 @import "header/_styles";
 @import "menus";
 @import "modals";
+@import "folders";
 
 .fade-enter-active,
 .fade-leave-active {
@@ -29,6 +30,12 @@
 }
 
 //==============================
+
+.container.section__container,
+.container.header__container {
+  max-width: 85%;
+  //max-width: 1637px !important;
+}
 
 .v-application {
   font-family: 'Avenir Next', sans-serif;
@@ -348,7 +355,8 @@
 @media (min-width: 1904px) {
   .container.section__container,
   .container.header__container {
-    max-width: 95%;
+    //max-width: 85%;
+    max-width: 1637px;
   }
 }
 

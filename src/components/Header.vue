@@ -7,9 +7,9 @@
   >
     <v-container class="d-flex justify-center header__container">
     <v-row justify="between" align="center" class="header__wrap ma-0">
-      <v-row align="center">
-    <v-row class="header__logo" align="center">
-        <a href="#" class="header__logo__svg">
+      <v-row align="center" class="ma-0">
+    <v-row class="header__logo ma-0" align="center">
+        <a href="/" class="header__logo__svg">
           <LogoSVG/>
         </a>
       <span class="header__logo__subtext">Конструктор форм</span>
@@ -19,6 +19,7 @@
       <div>
         <v-row
             align="center"
+            class="ma-0"
             no-gutters
         >
           <v-col

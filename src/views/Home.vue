@@ -1,15 +1,9 @@
 <template>
-  <div>
-    <main-settings-btn/>
-    <SectionPage/>
-  </div>
+  <FoldersPage/>
 </template>
-
 <script>
-  import SectionPage from "../components/SectionPage";
-  import MainSettingsBtn from "../components/Button/MainSettingsBtn";
-  export default {
-    name: 'Home',
-    components: {MainSettingsBtn, SectionPage}
-  }
+import FoldersPage from "../components/Pages/FoldersPage";
+export default {
+  components: {FoldersPage}
+}
 </script>
