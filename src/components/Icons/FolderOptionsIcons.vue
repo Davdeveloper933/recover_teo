@@ -11,6 +11,7 @@
                  :max-width="'32px'"
                  :min-width="'32px'"
                  color="#EC665E"
+                 @click="$emit('remove-folder')"
           >
             <img :src="require(`@/assets/img/icons/trash.svg`)" alt="">
           </v-btn>

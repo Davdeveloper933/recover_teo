@@ -43,7 +43,10 @@
           <div>
             <chevron-back/>
           </div>
-          <folder-options-icons v-if="hoverOnTab === index" />
+          <folder-options-icons
+              v-if="hoverOnTab === index"
+              @remove-folder="removeFolder(index)"
+          />
         </v-tab>
         </draggable>
       </v-col>
