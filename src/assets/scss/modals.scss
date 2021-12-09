@@ -321,7 +321,28 @@
   .custom-select {
     .v-select__slot {
       background-color: #232532 !important;
+      margin-bottom: 0 !important;
     }
   }
 }
 
+.create-form-modal {
+  input {
+    color: #FFFFFF !important;
+  }
+  .v-input__slot {
+    margin-bottom: 0 !important;
+  }
+  .section-settings-menu {
+    position: unset !important;
+  }
+  .main-menu__tabs {
+    padding:15px;
+    background: #3C3F4F;
+    border-radius: 3px;
+  }
+}
+
+.create-form-modal,.create-field-modal,.create-section-modal {
+  z-index: 10000;
+}

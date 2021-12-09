@@ -1,3 +1,15 @@
+.v-slide-group__wrapper {
+  contain: none !important;
+  overflow: visible !important;
+}
+
+.edit__input {
+  color: rgba(255, 255, 255, 0.4);
+  &:focus-visible {
+    outline: none !important;
+  }
+}
+
 .folders {
   .v-tabs--vertical > .v-window {
     flex: 0 1 75% !important;
@@ -84,6 +96,7 @@
     background: #3C3F4F;
     border-radius: 3px;
     flex: 0 0 49% !important;
+    height: fit-content;
     .icon {
       width: 15px;
       height: 10px;
@@ -127,4 +140,9 @@
       color: rgba(255, 255, 255, 0.6) !important;
     }
   }
+}
+
+.icons__wrapper.for_folder-tabs {
+  right: -100px !important;
+  z-index: 1000;
 }
