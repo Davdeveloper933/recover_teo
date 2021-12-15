@@ -83,14 +83,14 @@ export default new Vuex.Store({
       }
   },
   actions: {
-      // getFolders (context) {
-      //     axios.get(`https://apigen.teo-crm.com/api/folder/index`,{
-      //        method: "GET"
-      //    })
-      //         .then((data) => {
-      //             context.commit('getFolders',data.data)
-      //         })
-      // },
+      getFolders (context) {
+          axios.get(`https://apigen.teo-crm.com/api/folder/index`,{
+             method: "GET"
+         })
+              .then((data) => {
+                  context.commit('getFolders',data.data)
+              })
+      },
       getProjects (context,id) {
           axios.get(`https://apigen.teo-crm.com/api/project/index?id=${id}`,{
               method: "GET"

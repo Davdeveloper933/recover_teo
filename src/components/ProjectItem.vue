@@ -139,8 +139,7 @@ export default {
 
       if (this.draggedProject
       && isDraggableElementIsFolder) {
-        this.removeProject(this.draggedProject.id)
-        this.projectCreate(this.draggedProject,this.draggableFolder.id)
+        this.projectUpdate(this.draggedProject,this.draggableFolder)
         console.log('project id',this.draggedProject.id)
         console.log('folder id',this.draggableFolder.id)
       }
@@ -161,21 +160,22 @@ export default {
       // this.removeProject(draggedProject)
       // console.log(added)
     },
-    projectCreate (project,folderId) {
+    projectUpdate (project,folder) {
       let form_data = new FormData()
-      const customization = project.customization
+      // const customization = this.getCustomization
       form_data.append('name', project.name)
-      form_data.append('sort', project.sort)
-      form_data.append('folder_id', `${folderId}`)
-      form_data.append('customization',customization)
-      form_data.append('start_page', project.start_page)
-      axios.post('https://apigen.teo-crm.com/api/project/create',form_data,
+      form_data.append('sort', 1)
+      form_data.append('folder_id', `${folder.id}`)
+      console.log(this.project)
+      axios.post(`https://apigen.teo-crm.com/api/project/update?id=${project.id}`,form_data,
           {
             method: "POST"
           })
           .then(() => {
-            this.$store.dispatch('getProjects',folderId)
-            // console.log(this.customization)
+            this.$store.dispatch('getFolders')
+            this.$store.dispatch('getProjects',project.id)
+            console.log(this.customization)
+            this.$emit('close-modal')
           })
     },
   }
