@@ -1,8 +1,8 @@
 <template>
+  <div>
   <div class="d-flex">
     <v-dialog
-        v-model="dialog"
-        persistent
+        v-model="openEditModal"
         :max-width="'60%'"
         :width="'100%'"
     >
@@ -16,17 +16,31 @@
       <img :src="require(`@/assets/img/icons/edit.svg`)" alt="">
     </v-btn>
       </template>
-      <create-form-modal @close-modal="closeModal" />
+      <create-form-modal
+          @close-modal="closeModal"
+          :open-edit-modal="openEditModal"
+          :id="id"
+          :project-id="projectId"
+      ></create-form-modal>
     </v-dialog>
+    <v-btn
+        class="table__btn"
+        color="#BC4B4B"
+        @click="$emit('remove-project')"
+    >
+      <img :src="require(`@/assets/img/icons/trash.svg`)" alt="">
+    </v-btn>
     <v-btn
         class="white--text save-btn open-btn btns"
         color="#FEAC0D"
         elevation="0"
         :height="'100%'"
         :min-width="'unset'"
+        @click="openCurrentProject"
     >
       Открыть
     </v-btn>
+  </div>
   </div>
 </template>
 
@@ -35,14 +49,30 @@ import CreateFormModal from "../Modals/CreateFormModal";
 export default {
   name: "FolderItemIcons",
   components: {CreateFormModal},
+  props: {
+    openCreateModal: {
+      type: Boolean
+    },
+    id: {
+      type: Number
+    },
+    projectId: {
+      type: Number
+    },
+  },
   data () {
     return {
-      dialog: false
+      openEditModal: false
     }
   },
   methods: {
     closeModal() {
-      this.dialog = false
+      this.openEditModal = false
+    },
+    openCurrentProject () {
+      this.$router.push({
+        path: `/project/${this.projectId}`
+      })
     }
   }
 }

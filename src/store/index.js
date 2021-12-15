@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from "axios";
 
 Vue.use(Vuex)
 
@@ -10,9 +11,26 @@ export default new Vuex.Store({
     tabs: [],
     tabSelects: [],
     fields:[],
-    selectedItem: null
+    folders: [],
+    projects: [],
+    selectedItem: null,
+    baseURL: 'http://apigen.teo-crm.com/',
+    customization: [],
+    updateCustomization: []
   },
   mutations: {
+      getFolders (state,data) {
+          state.folders = data
+      },
+      getProjects (state,data) {
+          state.projects = data
+      },
+      getCustomization (state,data) {
+          state.customization = data
+      },
+      updateCustomization (state,data) {
+          state.updateCustomization = data
+      },
       initialiseStore(state) {
           if (JSON.parse(localStorage.getItem('sections'))) {
               state.sections = JSON.parse(localStorage.getItem('sections'))
@@ -65,6 +83,34 @@ export default new Vuex.Store({
       }
   },
   actions: {
+      // getFolders (context) {
+      //     axios.get(`http://apigen.teo-crm.com/api/folder/index`,{
+      //        method: "GET"
+      //    })
+      //         .then((data) => {
+      //             context.commit('getFolders',data.data)
+      //         })
+      // },
+      getProjects (context,id) {
+          axios.get(`http://apigen.teo-crm.com/api/project/index?id=${id}`,{
+              method: "GET"
+          })
+              .then((data) => {
+                  context.commit('getProjects',data.data)
+              })
+      },
+      customizationProject (context) {
+          axios.get('http://apigen.teo-crm.com/api/customization-project/index')
+              .then((customization) => {
+                  context.commit('getCustomization',customization.data)
+              })
+      },
+      updateCustomization (context,id) {
+          axios.get(`http://apigen.teo-crm.com/api/customization-project/view?id=${id}`)
+              .then((customization) => {
+                  context.commit('updateCustomization',customization.data.customization)
+              })
+      },
   },
   modules: {
   }

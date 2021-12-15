@@ -14,10 +14,13 @@
   .v-tabs--vertical > .v-window {
     flex: 0 1 75% !important;
   }
+  .v-list-item__content > * {
+    flex: unset;
+  }
   &__wrap {
     background: #232532;
     border-radius: 3px;
-    padding:25px 18px 40px 18px;
+    padding:25px 18px 25px 18px;
     max-width: 438px;
     width: 438px;
     &__top {
@@ -84,6 +87,7 @@
 
 .tab-active {
   background: #FEAC0D;
+  border-radius: 3px;
 }
 
 .task {

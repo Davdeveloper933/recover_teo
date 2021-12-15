@@ -15,9 +15,20 @@
       </v-btn>
       <h2 class="create-section-modal__title">Настройки</h2>
       <v-btn
+          v-if="openCreateModal"
           class="white--text save-btn generate-button btns"
           color="#3C3F4F"
           elevation="0"
+          @click="projectCreate"
+      >
+        Создать
+      </v-btn>
+      <v-btn
+          v-if="openEditModal"
+          class="white--text save-btn generate-button btns"
+          color="#3C3F4F"
+          elevation="0"
+          @click="projectUpdate"
       >
         Сохранить
       </v-btn>
@@ -28,13 +39,13 @@
             <label class="main-menu__label">
               Стартовая страница
             </label>
-            <v-select
-                :items="sections"
-                color="#3C3F4F"
-                class="custom-select"
-                placeholder="Выберите"
-            >
-            </v-select>
+        <v-text-field
+            color="#3C3F4F"
+            class="custom-input pt-0"
+            placeholder="Введите"
+            v-model="start_page"
+        >
+        </v-text-field>
 <!--          </v-row>-->
         </div>
         <div class="col-6">
@@ -45,6 +56,8 @@
               color="#3C3F4F"
               class="custom-input pt-0"
               placeholder="Введите"
+              v-model="name"
+              required
           >
           </v-text-field>
         </div>
@@ -65,38 +78,38 @@
         </div>
       </div>
     <div class="d-flex">
-      <div class="col-8">
+      <div class="col-6">
           <div class="section-settings-menu__wrap pt-0">
             <v-list
                 class="section-settings-menu flex-row d-flex white--text"
                 color="#3C3F4F"
                 :min-width="'100%'"
             >
-              <div class="col-6 pt-0" >
+              <div class="col-12 pt-0" v-if="openCreateModal">
                 <v-list-item
                     class="white--text d-flex flex-row align-center justify-space-between"
-                    v-for="(item, index) in settings.column1"
+                    v-for="(item, index) in customization"
                     :key="index"
                 >
-                  <v-list-item-title class="section-settings-menu__title">{{ item.title }}</v-list-item-title>
+                  <v-list-item-title class="section-settings-menu__title">{{ item.label }}</v-list-item-title>
                   <v-switch
                       class="custom-switch"
-                      v-model="item.switch2"
+                      v-model="item.value"
                       inset
                       color="#232532"
                   ></v-switch>
                 </v-list-item>
               </div>
-              <div class="col-6 pt-0" >
+              <div class="col-12 pt-0" v-if="openEditModal">
                 <v-list-item
                     class="white--text d-flex flex-row align-center justify-space-between"
-                    v-for="(item, index) in settings.column2"
+                    v-for="(item, index) in getCustomization"
                     :key="index"
                 >
-                  <v-list-item-title class="section-settings-menu__title">{{ item.title }}</v-list-item-title>
+                  <v-list-item-title class="section-settings-menu__title">{{ item.label }}</v-list-item-title>
                   <v-switch
                       class="custom-switch"
-                      v-model="item.switch2"
+                      v-model="item.value"
                       inset
                       color="#232532"
                   ></v-switch>
@@ -105,12 +118,12 @@
             </v-list>
           </div>
       </div>
-      <div class="col-4">
+      <div class="col-6">
         <v-row class="ma-0 main-menu__tabs flex-column">
         <label class="main-menu__label">
           Вкладки
         </label>
-        <v-row class="align-center mx-0 mb-0 mt-3 pa-0 justify-space-between">
+        <v-row class="align-center flex-nowrap mx-0 mb-0 mt-3 pa-0 justify-space-between">
           <v-text-field
               class="main-menu__tabs__input"
               placeholder="Наименование"
@@ -145,7 +158,7 @@
             </v-btn>
           </v-row>
         </v-row>
-        <v-row class="align-center mt-2 mb-0 mx-0 pa-0 justify-space-between">
+        <v-row class="align-center flex-nowrap mt-2 mb-0 mx-0 pa-0 justify-space-between">
           <v-text-field
               class="main-menu__tabs__input"
               placeholder="Раздел"
@@ -187,9 +200,24 @@
 <script>
 import {mdiMenuDown} from "@mdi/js";
 import {mapMutations} from "vuex";
+import axios from "axios";
 
 export default {
   name: "CreateFormModal",
+  props: {
+    id: {
+      type:Number
+    },
+    projectId: {
+      type:Number
+    },
+    openCreateModal: {
+      type: Boolean
+    },
+    openEditModal: {
+      type: Boolean
+    }
+  },
   data () {
     return {
       icons: {
@@ -197,49 +225,26 @@ export default {
       },
       tabTitle: null,
       selectTitle: null,
-      settings: {
-          column1: [
-            {
-              title: 'is_i18n',
-              switch2: false
-            },
-            {
-              title: 'Не генерировать меню',
-              switch2: false
-            },
-            {
-              title: 'Отключить миграцию',
-              switch2: false
-            },
-            {
-              title: 'Добавить модуль регистрации',
-              switch2: false
-            },
-          ],
-        column2: [
-          {
-            title: 'Верхнее меню',
-            switch2:false
-          },
-          {
-            title: 'API',
-            switch2:false
-          },
-          {
-            title: 'Авто бекап',
-            switch2:false
-          },
-          {
-            title: 'Скрыть из конструктора',
-            switch2:false
-          },
-            {
-              title: 'АПИ мобилки',
-              switch2:false
-            }
-        ]
-      }
+      name: null,
+      link: null,
+      start_page: "",
+      label: null,
+      value: null,
+      project: null,
+      getCustomization: null
     }
+  },
+  created() {
+    if (this.openEditModal) {
+      this.$store.dispatch('getProjects',this.id)
+      const getProjects = this.$store.state.projects
+      this.project = getProjects.find(project => project.id === this.projectId)
+      this.getCustomization = JSON.parse(this.project.customization)
+      this.name = this.project.name
+      this.start_page = this.project.start_page
+      console.log(this.getCustomization)
+    }
+    this.$store.dispatch('customizationProject')
   },
   mounted() {
     this.$parent.$el.classList.add('create-section-modal-styles')
@@ -254,7 +259,10 @@ export default {
     },
     tabSelects () {
       return this.$store.state.tabSelects
-    }
+    },
+    customization () {
+      return this.$store.state.customization
+    },
   },
   methods: {
     ...mapMutations(['addTab','removeTab','addTabSelect','removeTabSelect']),
@@ -275,6 +283,45 @@ export default {
     },
     removeTabSelect (index) {
       this.$store.commit('removeTabSelect',index)
+    },
+    projectCreate () {
+        let form_data = new FormData()
+        const customization = this.customization
+        form_data.append('name', this.name)
+        form_data.append('sort', 1)
+        form_data.append('folder_id', `${this.id}`)
+        form_data.append('customization',JSON.stringify(customization))
+        form_data.append('start_page', this.start_page)
+        axios.post('http://apigen.teo-crm.com/api/project/create',form_data,
+        {
+          method: "POST"
+        })
+        .then(() => {
+          this.$store.dispatch('getProjects',this.id)
+          console.log(this.customization)
+        })
+        this.$emit('close-modal')
+    },
+    projectUpdate () {
+      let form_data = new FormData()
+      const customization = this.getCustomization
+      const id = this.project.id
+      form_data.append('name', this.name)
+      form_data.append('sort', 1)
+      form_data.append('folder_id', `${this.id}`)
+      form_data.append('customization',JSON.stringify(customization))
+      form_data.append('start_page', this.start_page)
+      form_data.append('id', id)
+      console.log(this.project)
+      axios.post(`http://apigen.teo-crm.com/api/project/update?id=${id}`,form_data,
+          {
+            method: "POST"
+          })
+          .then(() => {
+            this.$store.dispatch('getProjects',this.id)
+            console.log(this.customization)
+            this.$emit('close-modal')
+          })
     },
   }
 }
