@@ -57,7 +57,8 @@
             <chevron-back/>
           </div>
           <folder-options-icons
-              v-if="hoverOnTab === index"
+              v-show="hoverOnTab === index"
+              :id="folders[index].id"
               @remove-folder="removeFolder(folder)"
           />
             </v-list-item-content>
