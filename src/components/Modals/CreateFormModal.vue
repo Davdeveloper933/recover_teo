@@ -292,7 +292,7 @@ export default {
         form_data.append('folder_id', `${this.id}`)
         form_data.append('customization',JSON.stringify(customization))
         form_data.append('start_page', this.start_page)
-        axios.post('http://apigen.teo-crm.com/api/project/create',form_data,
+        axios.post('https://apigen.teo-crm.com/api/project/create',form_data,
         {
           method: "POST"
         })
@@ -313,7 +313,7 @@ export default {
       form_data.append('start_page', this.start_page)
       form_data.append('id', id)
       console.log(this.project)
-      axios.post(`http://apigen.teo-crm.com/api/project/update?id=${id}`,form_data,
+      axios.post(`https://apigen.teo-crm.com/api/project/update?id=${id}`,form_data,
           {
             method: "POST"
           })

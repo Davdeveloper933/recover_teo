@@ -112,7 +112,7 @@ export default {
   methods: {
     // ...mapActions(['getProjects']),
     // getProjects (id) {
-    //   axios.get(`http://apigen.teo-crm.com/api/project/index?id=${id}`,{
+    //   axios.get(`https://apigen.teo-crm.com/api/project/index?id=${id}`,{
     //     method: "GET"
     //   })
     //       .then((data) => {
@@ -120,7 +120,7 @@ export default {
     //       })
     // },
     removeProject (id) {
-      axios.get(`http://apigen.teo-crm.com/api/project/delete?id=${id}`,{
+      axios.get(`https://apigen.teo-crm.com/api/project/delete?id=${id}`,{
         method: "GET"
       })
       .then(() => {
@@ -169,7 +169,7 @@ export default {
       form_data.append('folder_id', `${folderId}`)
       form_data.append('customization',customization)
       form_data.append('start_page', project.start_page)
-      axios.post('http://apigen.teo-crm.com/api/project/create',form_data,
+      axios.post('https://apigen.teo-crm.com/api/project/create',form_data,
           {
             method: "POST"
           })

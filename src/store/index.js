@@ -14,7 +14,7 @@ export default new Vuex.Store({
     folders: [],
     projects: [],
     selectedItem: null,
-    baseURL: 'http://apigen.teo-crm.com/',
+    baseURL: 'https://apigen.teo-crm.com/',
     customization: [],
     updateCustomization: []
   },
@@ -84,7 +84,7 @@ export default new Vuex.Store({
   },
   actions: {
       // getFolders (context) {
-      //     axios.get(`http://apigen.teo-crm.com/api/folder/index`,{
+      //     axios.get(`https://apigen.teo-crm.com/api/folder/index`,{
       //        method: "GET"
       //    })
       //         .then((data) => {
@@ -92,7 +92,7 @@ export default new Vuex.Store({
       //         })
       // },
       getProjects (context,id) {
-          axios.get(`http://apigen.teo-crm.com/api/project/index?id=${id}`,{
+          axios.get(`https://apigen.teo-crm.com/api/project/index?id=${id}`,{
               method: "GET"
           })
               .then((data) => {
@@ -100,13 +100,13 @@ export default new Vuex.Store({
               })
       },
       customizationProject (context) {
-          axios.get('http://apigen.teo-crm.com/api/customization-project/index')
+          axios.get('https://apigen.teo-crm.com/api/customization-project/index')
               .then((customization) => {
                   context.commit('getCustomization',customization.data)
               })
       },
       updateCustomization (context,id) {
-          axios.get(`http://apigen.teo-crm.com/api/customization-project/view?id=${id}`)
+          axios.get(`https://apigen.teo-crm.com/api/customization-project/view?id=${id}`)
               .then((customization) => {
                   context.commit('updateCustomization',customization.data.customization)
               })

@@ -179,7 +179,7 @@ export default {
   },
   methods: {
     getFolders () {
-      axios.get(`http://apigen.teo-crm.com/api/folder/index`,{
+      axios.get(`https://apigen.teo-crm.com/api/folder/index`,{
         method: "GET"
       })
           .then((data) => {
@@ -197,7 +197,7 @@ export default {
       let form_data = new FormData()
       form_data.append('name','Новая папка')
       form_data.append('sort',1)
-      axios.post('http://apigen.teo-crm.com/api/folder/create',form_data,{
+      axios.post('https://apigen.teo-crm.com/api/folder/create',form_data,{
       },{
         method:"POST",
       })
@@ -209,7 +209,7 @@ export default {
       let form_data = new FormData()
       form_data.append('name',this.title)
       // form_data.append('sort',1)
-      axios.post(`http://apigen.teo-crm.com/api/folder/update?id=${folder.id}`,form_data,{
+      axios.post(`https://apigen.teo-crm.com/api/folder/update?id=${folder.id}`,form_data,{
         method:"POST"
       })
           .then(() => {
@@ -217,7 +217,7 @@ export default {
           })
     },
     removeFolder(folder) {
-      axios.post(`http://apigen.teo-crm.com/api/folder/delete?id=${folder.id}`,{
+      axios.post(`https://apigen.teo-crm.com/api/folder/delete?id=${folder.id}`,{
         method:"POST"
       })
           .then(() => {
