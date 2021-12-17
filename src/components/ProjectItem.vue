@@ -133,6 +133,7 @@ export default {
         form_data.append('name', this.draggedProject.name)
         form_data.append('folder_id', `${this.draggableFolder.id}`)
         this.projectUpdate(this.draggedProject,form_data)
+        this.$store.dispatch('getFolders')
         console.log('project id',this.draggedProject.id)
         console.log('folder id',this.draggableFolder.id)
       }
@@ -143,24 +144,31 @@ export default {
         form_data2.append('sort', this.draggedProject.sort)
         this.projectUpdate(this.draggableFolder,form_data2)
         this.projectUpdate(this.draggedProject,form_data)
+        this.$store.dispatch('getFolders')
         console.log(this.projects)
       }
     },
     checkMove(evt){
+      // let move = false
       const folderIds = []
       let isDraggableElementIsFolder
       this.folders.forEach((folder) => {
         folderIds.push(folder.id)
       })
-      if (this.draggableFolder) {
-        isDraggableElementIsFolder = folderIds.includes(this.draggableFolder.id)
-      }
+
       this.draggableFolder = evt.relatedContext.element
       this.draggedProject = evt.draggedContext.element
       // this.removeProject(draggedProject.id)
-      // console.log('value' ,this.draggableFolder)
-      return !isDraggableElementIsFolder;
-
+      console.log('draggableFolder' ,this.draggableFolder)
+      console.log('isDraggableElementIsFolder' ,isDraggableElementIsFolder)
+      let move = false
+      if (this.draggableFolder) {
+        isDraggableElementIsFolder = folderIds.includes(this.draggableFolder.id)
+        if (!isDraggableElementIsFolder) {
+          move = true
+        }
+      }
+      return move
     },
     log(){
       // const folder = evt.relatedContext.element
@@ -174,8 +182,7 @@ export default {
             method: "POST"
           })
           .then(() => {
-            this.$store.dispatch('getFolders')
-            // this.$store.dispatch('getProjects',project.id)
+            this.$store.dispatch('getProjects',this.id)
           })
     },
   }

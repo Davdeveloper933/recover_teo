@@ -89,13 +89,7 @@ export default new Vuex.Store({
   actions: {
       getFolders (context) {
           axios.get(`https://apigen.teo-crm.com/api/folder/index`,{
-             method: "GET",
-             headers: {
-                 'Access-Control-Allow-Origin':true,
-                 'Access-Control-Allow-Methods':'GET, PUT, POST, DELETE, HEAD, OPTIONS, PATCH, PROPFIND, PROPPATCH, MKCOL, COPY, MOVE, LOCK',
-                 'Access-Control-Allow-Headers':'Content-Type',
-                 'Access-Control-Allow-Credentials': true
-             }
+             method: "GET"
          })
               .then((data) => {
                   context.commit('getFolders',data.data)
