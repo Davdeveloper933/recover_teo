@@ -94,20 +94,10 @@ export default {
     folders() {
       return this.$store.state.folders
     },
-    myList: {
-      get() {
-        return this.$store.state.projects
-      },
-      set(value) {
-        // this.$store.commit('updateList', value)
-        console.log('value',value)
-      }
-    }
   },
   created() {
     // this.getProjects(this.id)
     this.$store.dispatch('getProjects',this.id)
-
   },
   methods: {
     // ...mapActions(['getProjects']),
@@ -139,20 +129,38 @@ export default {
 
       if (this.draggedProject
       && isDraggableElementIsFolder) {
-        this.projectUpdate(this.draggedProject,this.draggableFolder)
+        let form_data = new FormData()
+        form_data.append('name', this.draggedProject.name)
+        form_data.append('folder_id', `${this.draggableFolder.id}`)
+        this.projectUpdate(this.draggedProject,form_data)
         console.log('project id',this.draggedProject.id)
         console.log('folder id',this.draggableFolder.id)
       }
+      if (this.draggedProject && !isDraggableElementIsFolder) {
+        let form_data = new FormData()
+        let form_data2 = new FormData()
+        form_data.append('sort', this.draggableFolder.sort)
+        form_data2.append('sort', this.draggedProject.sort)
+        this.projectUpdate(this.draggableFolder,form_data2)
+        this.projectUpdate(this.draggedProject,form_data)
+        console.log(this.projects)
+      }
     },
     checkMove(evt){
-      const folder = evt.relatedContext.element
-      const draggedProject = evt.draggedContext.element
-      this.draggableFolder = folder
-      this.draggedProject = draggedProject
+      const folderIds = []
+      let isDraggableElementIsFolder
+      this.folders.forEach((folder) => {
+        folderIds.push(folder.id)
+      })
+      if (this.draggableFolder) {
+        isDraggableElementIsFolder = folderIds.includes(this.draggableFolder.id)
+      }
+      this.draggableFolder = evt.relatedContext.element
+      this.draggedProject = evt.draggedContext.element
       // this.removeProject(draggedProject.id)
       // console.log('value' ,this.draggableFolder)
+      return !isDraggableElementIsFolder;
 
-      return false
     },
     log(){
       // const folder = evt.relatedContext.element
@@ -160,22 +168,14 @@ export default {
       // this.removeProject(draggedProject)
       // console.log(added)
     },
-    projectUpdate (project,folder) {
-      let form_data = new FormData()
-      // const customization = this.getCustomization
-      form_data.append('name', project.name)
-      form_data.append('sort', 1)
-      form_data.append('folder_id', `${folder.id}`)
-      console.log(this.project)
+    projectUpdate (project,form_data) {
       axios.post(`https://apigen.teo-crm.com/api/project/update?id=${project.id}`,form_data,
           {
             method: "POST"
           })
           .then(() => {
             this.$store.dispatch('getFolders')
-            this.$store.dispatch('getProjects',project.id)
-            console.log(this.customization)
-            this.$emit('close-modal')
+            // this.$store.dispatch('getProjects',project.id)
           })
     },
   }

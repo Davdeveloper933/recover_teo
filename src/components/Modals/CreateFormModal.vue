@@ -263,6 +263,9 @@ export default {
     customization () {
       return this.$store.state.customization
     },
+    projects () {
+      return this.$store.state.projects
+    }
   },
   methods: {
     ...mapMutations(['addTab','removeTab','addTabSelect','removeTabSelect']),
@@ -288,7 +291,7 @@ export default {
         let form_data = new FormData()
         const customization = this.customization
         form_data.append('name', this.name)
-        form_data.append('sort', 1)
+        form_data.append('sort', this.projects.length+1)
         form_data.append('folder_id', `${this.id}`)
         form_data.append('customization',JSON.stringify(customization))
         form_data.append('start_page', this.start_page)
@@ -307,7 +310,6 @@ export default {
       const customization = this.getCustomization
       const id = this.project.id
       form_data.append('name', this.name)
-      form_data.append('sort', 1)
       form_data.append('folder_id', `${this.id}`)
       form_data.append('customization',JSON.stringify(customization))
       form_data.append('start_page', this.start_page)

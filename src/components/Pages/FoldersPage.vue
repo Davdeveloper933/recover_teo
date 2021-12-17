@@ -30,6 +30,8 @@
         >
         <draggable
             class="list-group"
+            :move="checkMove"
+            @end="dragEnd"
             :list="folders"
             :disabled="!enabled"
             ghost-class="ghost"
@@ -153,10 +155,13 @@ export default {
         }
       ],
       panels: [1,2,3,4],
+      draggedFolder: null,
+      draggableFolder: null
     }
   },
   mounted() {
     this.getFolders()
+    console.log(this.folders)
   },
   computed: {
     tabs () {
@@ -168,13 +173,8 @@ export default {
     projects () {
       return this.$store.state.projects
     },
-    folders: {
-      get() {
+    folders() {
         return this.$store.state.folders
-      },
-      set() {
-        // console.log('value = ',value)
-      }
     }
   },
   methods: {
@@ -184,6 +184,7 @@ export default {
       })
           .then((data) => {
             this.$store.commit('getFolders',data.data)
+            console.log(this.folders)
           })
     },
     clickOnFolder (index) {
@@ -196,7 +197,7 @@ export default {
     addFolder() {
       let form_data = new FormData()
       form_data.append('name','Новая папка')
-      form_data.append('sort',1)
+      form_data.append('sort',this.folders.length+1)
       axios.post('https://apigen.teo-crm.com/api/folder/create',form_data,{
       },{
         method:"POST",
@@ -205,10 +206,7 @@ export default {
         this.getFolders()
       })
     },
-    updateFolder (folder) {
-      let form_data = new FormData()
-      form_data.append('name',this.title)
-      // form_data.append('sort',1)
+    updateFolder (folder,form_data) {
       axios.post(`https://apigen.teo-crm.com/api/folder/update?id=${folder.id}`,form_data,{
         method:"POST"
       })
@@ -239,14 +237,40 @@ export default {
     saveEdit: function(index){
       // However we want to save it to the database
       this.folders[index].name = this.title
-      this.updateFolder(this.folders[index])
+      let form_data = new FormData()
+      form_data.append('name',this.title)
+      this.updateFolder(this.folders[index],form_data)
       this.disableEditing();
     },
-    add: function() {
-      this.folders.push({
-        title:'Новая папка',
-        content:[]
+    dragEnd() {
+      const folderIds = []
+      let isDraggableElementIsFolder
+      this.folders.forEach((folder) => {
+        folderIds.push(folder.id)
       })
+      if (this.draggableFolder) {
+        isDraggableElementIsFolder = folderIds.includes(this.draggableFolder.id)
+      }
+
+      if (isDraggableElementIsFolder) {
+        let form_data = new FormData()
+        let form_data2 = new FormData()
+        form_data.append('sort',this.draggedFolder.sort)
+        form_data2.append('sort',this.draggableFolder.sort)
+        this.updateFolder(this.draggableFolder,form_data)
+        this.updateFolder(this.draggedFolder,form_data2)
+        console.log(this.folders)
+      }
+    },
+    checkMove(evt){
+      this.draggableFolder = evt.relatedContext.element
+      this.draggedFolder = evt.draggedContext.element
+      // this.removeProject(draggedProject.id)
+      // console.log('value' ,this.draggableFolder)
+      if (this.draggableFolder) {
+        return true
+      }
+      return false
     },
 }
 }

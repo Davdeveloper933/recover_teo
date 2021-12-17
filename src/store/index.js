@@ -20,10 +20,14 @@ export default new Vuex.Store({
   },
   mutations: {
       getFolders (state,data) {
-          state.folders = data
+          state.folders = data.sort((a,b)=> {
+              return a.sort - b.sort
+          })
       },
       getProjects (state,data) {
-          state.projects = data
+          state.projects = data.sort((a,b)=> {
+              return a.sort - b.sort
+          })
       },
       getCustomization (state,data) {
           state.customization = data
