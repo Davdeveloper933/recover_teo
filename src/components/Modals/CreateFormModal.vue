@@ -112,6 +112,7 @@
                       v-model="item.value"
                       inset
                       color="#232532"
+                      @click="updateCustomization(item)"
                   ></v-switch>
                 </v-list-item>
               </div>
@@ -231,24 +232,48 @@ export default {
       label: null,
       value: null,
       project: null,
-      getCustomization: null
+      getCustomization: null,
+      defaultCustomization: null
     }
   },
   created() {
-    if (this.openEditModal) {
-      this.$store.dispatch('getProjects',this.id)
-      const getProjects = this.$store.state.projects
-      this.project = getProjects.find(project => project.id === this.projectId)
-      this.getCustomization = JSON.parse(this.project.customization)
-      this.name = this.project.name
-      this.start_page = this.project.start_page
-      console.log(this.getCustomization)
-    }
+    // this.$store.dispatch('customizationProject')
+    // if (this.openEditModal) {
+    //   this.$store.dispatch('getProjects',this.id)
+    //   const getProjects = this.$store.state.projects
+    //   this.project = getProjects.find(project => project.id === this.projectId)
+    //   this.getCustomization = JSON.parse(this.project.customization)
+    //   this.name = this.project.name
+    //   this.start_page = this.project.start_page
+    //   console.log('custom',this.customization)
+    // }
+    this.$store.dispatch('getProjects',this.id)
     this.$store.dispatch('customizationProject')
+    this.defaultCustomization = this.$store.state.customization
+    // console.log(this.defaultCustomization)
   },
   mounted() {
     this.$parent.$el.classList.add('create-section-modal-styles')
     console.log(this.$parent.$el)
+    // this.$store.dispatch('customizationProject')
+    if (this.openEditModal) {
+      // this.$store.dispatch('getProjects',this.id)
+      this.$store.dispatch('customizationProject')
+      const getProjects = this.$store.state.projects
+      this.defaultCustomization = this.$store.state.customization
+      this.project = getProjects.find(project => project.id === this.projectId)
+      this.getCustomization = JSON.parse(this.project.customization)
+      this.name = this.project.name
+      this.start_page = this.project.start_page
+      // const result = this.defaultCustomization.map((item)=> {
+      //   const currentItem = this.getCustomization
+      //   for(key in item){
+      //
+      //   }
+      // })
+      console.log(this.defaultCustomization)
+    }
+    this.$store.dispatch('customizationProject')
   },
   computed: {
     sections() {
@@ -305,6 +330,16 @@ export default {
         })
         this.$emit('close-modal')
     },
+    updateCustomization(item) {
+      let form_data = new FormData()
+      form_data.append('name',item.name)
+      form_data.append('label',item.label)
+      form_data.append('value',item.value)
+      axios.post(`https://apigen.teo-crm.com/api/customization-project/update?id=${item.id}`,form_data,
+          {
+            method: "POST"
+          })
+    },
     projectUpdate () {
       let form_data = new FormData()
       const customization = this.getCustomization
@@ -325,6 +360,7 @@ export default {
             this.$emit('close-modal')
           })
     },
+
   }
 }
 </script>

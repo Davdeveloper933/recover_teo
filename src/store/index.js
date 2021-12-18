@@ -7,7 +7,38 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     config: null,
-    sections: [],
+    sections: [
+        {
+            section: 'title',
+            id: Math.ceil(Math.random()*1000000),
+            translation: 'Translation',
+            layout: {
+                component: "Layout",
+                props: {
+                    orientation: "vertical"
+                },
+                children: [
+                    {
+                        component: "Layout",
+                        props: {
+                            orientation: "horizontal"
+                        },
+                        children:[
+                            {
+                                component: "Item",
+                                display: {
+                                    weight: 1
+                                },
+                                props: {
+                                    content: 'title of field'
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    ],
     tabs: [],
     tabSelects: [],
     fields:[],

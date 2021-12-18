@@ -23,14 +23,45 @@
                 @close-modal="closeModal"
             ></create-form-modal>
           </v-dialog>
+          <v-dialog
+              v-model="removeFolderDialog"
+              persistent
+              max-width="290"
+          >
+            <template v-slot:activator="{ on, attrs }">
           <v-btn class="icon-btn px-0 trash"
                  :max-width="'32px'"
                  :min-width="'32px'"
                  color="#EC665E"
-                 @click="$emit('remove-folder')"
+                 v-bind="attrs"
+                 v-on="on"
           >
             <img :src="require(`@/assets/img/icons/trash.svg`)" alt="">
           </v-btn>
+            </template>
+            <v-card>
+              <v-card-title class="text-h5">
+                Подтвердите удаление папки
+              </v-card-title>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                    color="green darken-1"
+                    text
+                    @click="removeFolderDialog = false"
+                >
+                  Отмена
+                </v-btn>
+                <v-btn
+                    color="green darken-1"
+                    text
+                    @click="removeFolder"
+                >
+                  Удалить
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
         </v-row>
 </template>
 
@@ -46,13 +77,18 @@ export default {
   },
   data () {
     return {
-      openCreateModal: false
+      openCreateModal: false,
+      removeFolderDialog: false
     }
   },
   methods: {
     closeModal() {
       this.openCreateModal = false
     },
+    removeFolder () {
+      this.$emit('remove-folder')
+      this.removeFolderDialog = false
+    }
   }
 }
 </script>
