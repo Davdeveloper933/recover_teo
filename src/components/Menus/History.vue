@@ -23,7 +23,7 @@
           <transition name="fade">
             <div
                 class="custom-radio__active"
-                v-if="item.on"
+                v-if="item.on || radioMarked === index"
             >
               <div class="custom-radio__ellipse"></div>
             </div>

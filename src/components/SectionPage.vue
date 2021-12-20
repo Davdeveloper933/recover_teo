@@ -55,7 +55,7 @@
         </v-btn>
         <transition name="fade">
         <History
-            v-if="true"
+            v-if="active"
             :history="history"
             @click-on-history="selectHistory"
         />

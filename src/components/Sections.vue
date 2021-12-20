@@ -52,6 +52,7 @@
                       </v-list-item-title>
                       <IconsGroup
                           v-if="isHovered === index"
+                          @remove-section="removeSection(index)"
                       />
                     </v-list-item-content>
                   </template>
@@ -130,7 +131,10 @@ export default {
       console.log(this.sections)
       this.updateFields(this.sections)
       this.saveSectionsToLocalStorage()
-    }
+    },
+    removeSection(state,index) {
+      this.sections.splice(index,1)
+    },
   }
 }
 </script>

@@ -69,6 +69,7 @@
            :max-width="'32px'"
            :min-width="'32px'"
            color="#EC665E"
+           @click="$emit('remove-section')"
     >
       <img :src="require(`@/assets/img/icons/trash.svg`)" alt="">
     </v-btn>
@@ -85,6 +86,7 @@ import {bus} from "../main";
 export default {
   name: "IconsGroup",
   components: {SectionSettings},
+  props:['sections'],
   data () {
     return {
       active: false,
@@ -137,7 +139,7 @@ export default {
     showIcons () {
       this.active = !this.active
       bus.$emit('hover:icons',this.active)
-    }
+    },
   }
 }
 </script>
