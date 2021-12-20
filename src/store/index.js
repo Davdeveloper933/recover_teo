@@ -7,38 +7,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     config: null,
-    sections: [
-        {
-            section: 'title',
-            id: Math.ceil(Math.random()*1000000),
-            translation: 'Translation',
-            layout: {
-                component: "Layout",
-                props: {
-                    orientation: "vertical"
-                },
-                children: [
-                    {
-                        component: "Layout",
-                        props: {
-                            orientation: "horizontal"
-                        },
-                        children:[
-                            {
-                                component: "Item",
-                                display: {
-                                    weight: 1
-                                },
-                                props: {
-                                    content: 'title of field'
-                                }
-                            }
-                        ]
-                    }
-                ]
-            }
-        }
-    ],
+    sections: [],
     tabs: [],
     tabSelects: [],
     fields:[],
@@ -47,7 +16,9 @@ export default new Vuex.Store({
     selectedItem: null,
     baseURL: 'https://apigen.teo-crm.com/',
     customization: [],
-    updateCustomization: []
+    updateCustomization: [],
+    customizationSection: [],
+    history:null
   },
   mutations: {
       getFolders (state,data) {
@@ -65,6 +36,12 @@ export default new Vuex.Store({
       },
       updateCustomization (state,data) {
           state.updateCustomization = data
+      },
+      getCustomizationSection (state,data) {
+          state.customizationSection = data
+      },
+      getProjectHistory (state,data) {
+          state.history = data
       },
       initialiseStore(state) {
           if (JSON.parse(localStorage.getItem('sections'))) {
@@ -97,8 +74,8 @@ export default new Vuex.Store({
       removeTabSelect(state,index) {
           state.tabSelects.splice(index,1)
       },
-      saveSectionsToLocalStorage(state) {
-          localStorage.setItem('sections',JSON.stringify(state.sections))
+      saveSectionsToLocalStorage(state,id) {
+          localStorage.setItem(`sections-${id}`,JSON.stringify(state.sections))
       },
       updateFields(state,sections) {
           state.sections = sections
@@ -146,6 +123,25 @@ export default new Vuex.Store({
                   context.commit('updateCustomization',customization.data.customization)
               })
       },
+      customizationSection (context) {
+          axios.get('https://apigen.teo-crm.com/api/customization-section/index')
+              .then((customization) => {
+                  context.commit('getCustomizationSection',customization.data)
+              })
+      },
+      createProjectHistory (context,form_data) {
+          axios.post(`https://apigen.teo-crm.com/api/history/create`,form_data,{
+              method: "POST"
+          })
+      },
+      getProjectHistory (context,id) {
+          axios.get(`https://apigen.teo-crm.com/api/history?id=${id}`,{
+              method: "GET"
+          })
+              .then((history)=>{
+                  context.commit('getProjectHistory',history.data)
+              })
+      }
   },
   modules: {
   }

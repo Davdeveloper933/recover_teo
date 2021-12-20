@@ -48,7 +48,7 @@
             <span class="mr-2">
               <ListSVG class="items__icon"/>
             </span>
-                        {{ item.section }}
+                        {{ item.name }} ({{ item.translation }})
                       </v-list-item-title>
                       <IconsGroup
                           v-if="isHovered === index"
@@ -63,7 +63,7 @@
       </v-col>
 
       <transition name="fade">
-        <Fields v-if="showFields === index" :selected-section="sections[index]" :selected-index="index" />
+        <Fields v-if="showFields === index" :sections="sections" :selected-section="sections[index]" :selected-index="index" />
       </transition>
       </v-row>
     <Table :key="index" :selected-index="index"/>
@@ -84,6 +84,7 @@ export default {
   name: "Sections",
   components: {Table, Fields, IconsGroup,ListSVG,draggable},
   mixins:[sectionItem],
+  props: ['sections'],
   data () {
     return {
       showFields:false,
@@ -103,9 +104,9 @@ export default {
     })
   },
   computed: {
-    sections () {
-        return this.$store.state.sections
-    },
+    // sections () {
+    //     return JSON.parse(localStorage.getItem(`sections-${this.$route.params.id}`))
+    // },
     draggingInfo() {
       return this.dragging ? "under drag" : "";
     },

@@ -21,7 +21,7 @@
       components: {
         LayoutComposer
       },
-      props:['selectedSection','selectedIndex'],
+      props:['selectedSection','selectedIndex','sections'],
       data() {
         return {
           displayComponents: {
@@ -32,7 +32,7 @@
       },
       computed: {
         initialConfig() {
-          let sections = this.$store.state.sections
+          let sections = this.sections
             return sections[this.selectedIndex].layout
         }
       },

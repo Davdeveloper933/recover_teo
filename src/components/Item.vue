@@ -20,8 +20,8 @@
         <img :src="require(`@/assets/img/icons/list.svg`)" alt="">
       </div>
       <h3 class="fields__item__value">
-       {{ content }}
-        <span class="fields__item__translation">(Name)</span>
+       {{ content.name }}
+        <span class="fields__item__translation" v-if="content.translation">({{content.translation}})</span>
       </h3>
       </div>
       <transition name="fade">

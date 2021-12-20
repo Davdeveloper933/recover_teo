@@ -18,8 +18,9 @@
         class="white--text save-btn generate-button btns"
         color="#3C3F4F"
         elevation="0"
+        @click="addSection"
     >
-      Сохранить
+      Создать
     </v-btn>
   </v-row>
 <!--    <v-row class="justify-space-between align-center mx-0">-->
@@ -35,6 +36,7 @@
           color="#3C3F4F"
           class="custom-input pt-0"
           placeholder="Введите"
+          v-model="nameInRussian"
       >
       </v-text-field>
         </v-col>
@@ -47,6 +49,7 @@
             color="#3C3F4F"
             class="custom-input pt-0"
             placeholder="Введите"
+            v-model="nameInEnglish"
         >
         </v-text-field>
         </div>
@@ -61,51 +64,51 @@
               class="ma-0 modules__inner first"
           >
 <!--            <v-row class="ma-0 modules__inner__first">-->
-            <v-col class="col-4 pr-8 pa-0 modules__item">
+            <v-col class="col-12 pr-8 pa-0 modules__item">
               <v-row
                   class="mx-0 mt-0 align-center flex-nowrap justify-space-between"
-                  v-for="index in modulesToShow.column1"
+                  v-for="(item, index) in customization"
                   :key="index"
               >
-                <span>{{ modules.column1[index-1].title }}</span>
+                <span>{{ item.label }}</span>
                 <v-switch
                     class="custom-switch"
-                    v-model="modules.column1[index-1].switch"
+                    v-model="item.value"
                     inset
                     color="#232532"
                 ></v-switch>
               </v-row>
             </v-col>
-            <v-col class="col-4 pr-8 pl-8 pa-0 modules__item">
-              <v-row
-                  class="mx-0 mt-0 align-center flex-nowrap justify-space-between"
-                  v-for="index in modulesToShow.column2"
-                  :key="index"
-              >
-                <span>{{ modules.column2[index-1].title }}</span>
-                <v-switch
-                    class="custom-switch"
-                    v-model="modules.column2[index-1].switch"
-                    inset
-                    color="#232532"
-                ></v-switch>
-              </v-row>
-            </v-col>
-            <v-col class="col-4 pl-8 pa-0 modules__item">
-              <v-row
-                  class="mx-0 mt-0 align-center flex-nowrap justify-space-between"
-                  v-for="index in modulesToShow.column3"
-                  :key="index"
-              >
-                <span>{{ modules.column3[index-1].title }}</span>
-                <v-switch
-                    class="custom-switch"
-                    v-model="modules.column3[index-1].switch"
-                    inset
-                    color="#232532"
-                ></v-switch>
-              </v-row>
-            </v-col>
+<!--            <v-col class="col-4 pr-8 pl-8 pa-0 modules__item">-->
+<!--              <v-row-->
+<!--                  class="mx-0 mt-0 align-center flex-nowrap justify-space-between"-->
+<!--                  v-for="index in modulesToShow.column2"-->
+<!--                  :key="index"-->
+<!--              >-->
+<!--                <span>{{ modules.column2[index-1].title }}</span>-->
+<!--                <v-switch-->
+<!--                    class="custom-switch"-->
+<!--                    v-model="modules.column2[index-1].switch"-->
+<!--                    inset-->
+<!--                    color="#232532"-->
+<!--                ></v-switch>-->
+<!--              </v-row>-->
+<!--            </v-col>-->
+<!--            <v-col class="col-4 pl-8 pa-0 modules__item">-->
+<!--              <v-row-->
+<!--                  class="mx-0 mt-0 align-center flex-nowrap justify-space-between"-->
+<!--                  v-for="index in modulesToShow.column3"-->
+<!--                  :key="index"-->
+<!--              >-->
+<!--                <span>{{ modules.column3[index-1].title }}</span>-->
+<!--                <v-switch-->
+<!--                    class="custom-switch"-->
+<!--                    v-model="modules.column3[index-1].switch"-->
+<!--                    inset-->
+<!--                    color="#232532"-->
+<!--                ></v-switch>-->
+<!--              </v-row>-->
+<!--            </v-col>-->
           </v-row>
         </v-col>
         </v-row>
@@ -203,25 +206,25 @@
     >
       <v-col class="pa-0 col-8">
         <div class="align-center d-flex justify-center">
-      <v-btn
-          class="show-more-btn align-center"
-          color="transparent"
-          elevation="0"
-          v-if="(modulesToShow.column1 < modules.column1.length ||
-               modulesToShow.column2 < modules.column2.length
-               || modulesToShow.column3 < modules.column3.length)
-              || (modules.column1.length > modulesToShow.column1
-               || modules.column2.length > modulesToShow.column2
-               || modules.column3.length > modulesToShow.column3)
-              && !expanded"
-          @click="modulesToShow.column1 += modules.column1.length-3;
-              modulesToShow.column2 += modules.column2.length-3;
-              modulesToShow.column3 += modules.column3.length-3;
-              expanded = true"
-      >
-        Показать больше
-        <chevron-down/>
-      </v-btn>
+<!--      <v-btn-->
+<!--          class="show-more-btn align-center"-->
+<!--          color="transparent"-->
+<!--          elevation="0"-->
+<!--          v-if="(modulesToShow.column1 < modules.column1.length ||-->
+<!--               modulesToShow.column2 < modules.column2.length-->
+<!--               || modulesToShow.column3 < modules.column3.length)-->
+<!--              || (modules.column1.length > modulesToShow.column1-->
+<!--               || modules.column2.length > modulesToShow.column2-->
+<!--               || modules.column3.length > modulesToShow.column3)-->
+<!--              && !expanded"-->
+<!--          @click="modulesToShow.column1 += modules.column1.length-3;-->
+<!--              modulesToShow.column2 += modules.column2.length-3;-->
+<!--              modulesToShow.column3 += modules.column3.length-3;-->
+<!--              expanded = true"-->
+<!--      >-->
+<!--        Показать больше-->
+        <chevron-down v-if="false"/>
+<!--      </v-btn>-->
         </div>
       </v-col>
     </v-row>
@@ -391,17 +394,22 @@
 <script>
 import ChevronDown from "../SVG/ChevronDown";
 import ChevronCompactSVG from "../SVG/ChevronCompactSVG";
+import {mapMutations} from "vuex";
 export default {
   name: "CreateSectionModal",
   components: {ChevronCompactSVG, ChevronDown},
+  props:['sections'],
   data () {
     return {
+      getCustomization: null,
       items: ['item1','item2','item3'],
       tabs: [],
       switch2: false,
       switch1: false,
-      nameInRussian: null,
-      nameInEnglish: null,
+      nameInRussian:null,
+      nameInEnglish:null,
+      nameInRussianOfTab: null,
+      nameInEnglishOfTab: null,
       isOpenA: false,
       isOpenB: false,
       expanded:false,
@@ -598,11 +606,46 @@ export default {
       }
     }
   },
+  created() {
+    this.$store.dispatch('customizationSection')
+  },
   mounted() {
     this.$parent.$el.classList.add('create-section-modal-styles')
     console.log(this.$parent.$el)
   },
+  computed:{
+    customization () {
+      return this.$store.state.customizationSection
+    },
+  },
   methods: {
+    ...mapMutations(['add','remove','saveSectionsToLocalStorage']),
+    addSection() {
+        const currentSection = this.sections
+        const sectionContent = {
+          name: this.nameInRussian,
+          id: Math.ceil(Math.random() * 1000000),
+          translation: this.nameInEnglish,
+          layout: {
+            component: "Layout",
+            props: {
+              orientation: "vertical"
+            },
+            customization: this.customization,
+            children: []
+          }
+        }
+        // if (!currentSection) {
+        //   this.add(sectionContent)
+        //   this.saveSectionsToLocalStorage(this.$route.params.id)
+        //   console.log('updated sections', this.sections)
+        //   this.$emit('close-modal')
+        // }
+          currentSection.push(sectionContent)
+          localStorage.setItem(`sections-${this.$route.params.id}`, JSON.stringify(currentSection))
+          console.log('updated sections', this.sections)
+          this.$emit('close-modal')
+    },
     onClickOutside() {
       if(this.expanded) {
         this.modulesToShow.column1 = 3
@@ -614,8 +657,8 @@ export default {
     },
     addTab() {
       const tab = {
-        nameInRussian: '',
-        nameInEnglish: ''
+        nameInRussianOfTab: '',
+        nameInEnglishOfTab: ''
       }
       this.tabs.push(tab)
     },

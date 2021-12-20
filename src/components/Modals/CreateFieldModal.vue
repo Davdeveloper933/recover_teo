@@ -34,6 +34,7 @@
                 color="#3C3F4F"
                 class="custom-input pt-0"
                 placeholder="Введите"
+                v-model="nameInRussian"
             >
             </v-text-field>
           </v-col>
@@ -46,6 +47,7 @@
                   color="#3C3F4F"
                   class="custom-input pt-0"
                   placeholder="Введите"
+                  v-model="nameInEnglish"
               >
               </v-text-field>
             </div>
@@ -264,12 +266,17 @@
 import TranslateSVG from "../SVG/TranslateSVG";
 import ChevronDown from "../SVG/ChevronDown";
 import FieldTypeDropdown from "../Dropdowns/FieldTypeDropdown";
+import {mapMutations} from "vuex";
 export default {
   name: "CreateFieldModal",
   components: {FieldTypeDropdown, ChevronDown, TranslateSVG},
+  props:['selectedSection'],
   data () {
     return {
       items: ['item1','item2','item3'],
+      nameInRussian:null,
+      nameInEnglish:null,
+      getCustomization: null,
       dropdownItems: [
         {
           title:'Текст',
@@ -397,6 +404,39 @@ export default {
     console.log(this.$parent.$el)
   },
   methods: {
+    ...mapMutations(['updateFields','setSelectedItem','saveSectionsToLocalStorage','addField','addFieldsOfCurrentSection']),
+    addFieldToFields () {
+      const field = {
+        component: "Layout",
+        props: {
+          orientation: "horizontal"
+        },
+        children:[
+          {
+            component: "Item",
+            display: {
+              weight: 1
+            },
+            props: {
+              content: {
+                name: this.nameInRussian,
+                translation: this.nameInEnglish
+              }
+            }
+          }
+        ]
+      }
+      const currentField = {
+        id: this.selectedSection.id,
+        title: this.title
+      }
+      this.addFieldsOfCurrentSection(currentField)
+      this.sections[this.selectedIndex].layout.children.push(field)
+      this.setSelectedItem(this.selectedIndex)
+      // this.addField(field)
+      this.updateFields(this.sections)
+      this.dialog = false
+    },
     onClickOutside (e) {
       if (e.target.className !== 'field-type__btn') {
         this.dropDownIsOpened = false

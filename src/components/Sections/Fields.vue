@@ -6,8 +6,8 @@
             <v-col class="d-flex align-center">
         <v-icon color="white">{{ icons.mdiFormatListBulleted }}</v-icon>
         <v-toolbar-title class="white--text fields__title">
-          {{ selectedSection.section }}
-          <span class="fields__translation">({{ selectedSection.translation }})</span>
+          {{ selectedSection.name }}
+          <span class="fields__translation" v-if="selectedSection.translation">({{ selectedSection.translation }})</span>
         </v-toolbar-title>
             </v-col>
 <!--        </v-col>-->
@@ -62,11 +62,11 @@
                 </v-icon>
               </v-btn>
             </template>
-            <create-field-modal @close-modal="closeModal" />
+            <create-field-modal :selected-section="selectedSection" @close-modal="closeModal" />
           </v-dialog>
         </v-col>
     </v-row>
-    <LayoutTest :key="selectedIndex" :selected-section="selectedSection" :selected-index="selectedIndex" />
+    <LayoutTest :key="selectedIndex" :sections="sections" :selected-section="selectedSection" :selected-index="selectedIndex" />
   </v-col>
 </template>
 
@@ -80,7 +80,7 @@ import CreateFieldModal from "../Modals/CreateFieldModal";
 export default {
   name: "Fields",
   components: {CreateFieldModal, ExpandableIcons, LayoutTest},
-  props:['selectedSection','selectedIndex'],
+  props:['selectedSection','selectedIndex','sections'],
   data () {
     return {
       dialog:false,
@@ -92,10 +92,10 @@ export default {
     }
   },
   computed:{
-    sections () {
-      return JSON.parse(localStorage.getItem('sections'))?
-          JSON.parse(localStorage.getItem('sections')):this.$store.state.sections
-    }
+    // sections () {
+    //   return JSON.parse(localStorage.getItem('sections'))?
+    //       JSON.parse(localStorage.getItem('sections')):this.$store.state.sections
+    // }
   },
   methods:{
     ...mapMutations(['updateFields','setSelectedItem','saveSectionsToLocalStorage','addField','addFieldsOfCurrentSection']),
