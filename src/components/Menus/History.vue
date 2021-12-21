@@ -11,7 +11,9 @@
         :key="index"
         @click="historyClick(index)"
     >
-      <label class="white--text history__item d-flex flex-row align-center justify-space-between" :for="index">
+      <label class="white--text history__item d-flex flex-row align-center justify-space-between"
+             :for="index"
+      >
       <v-list-item-title class="history__text history__title">{{ item.create_at | getDate }}</v-list-item-title>
       <span class="history__text mr-4">{{ item.create_at | getTime }}</span>
       <div class="custom-radio">
@@ -19,11 +21,11 @@
             class="custom-radio__wrapper"
             @click="radioMarked === index?radioMarked = false:radioMarked = index"
         >
-          <input type="radio" :id="index" v-model="item.on" :name="index" class="custom-radio__wrapper__radio">
+          <input type="radio" :id="index" :value="index" v-model="on" :name="index" class="custom-radio__wrapper__radio">
           <transition name="fade">
             <div
                 class="custom-radio__active"
-                v-if="item.on || radioMarked === index"
+                v-if="on != null && on === index"
             >
               <div class="custom-radio__ellipse"></div>
             </div>
@@ -71,7 +73,7 @@ export default {
       date:null,
       time:null,
       radioSelectedValue:null,
-      radioGroup:1
+      on:this.history.length-1,
       // history: [
       //   {
       //     date: '18.01.2021',

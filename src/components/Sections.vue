@@ -7,6 +7,8 @@
     </h2>
     <v-row
         class="ma-0 justify-space-between flex-column flex-lg-row d-flex"
+        v-if="sections"
+        :key="sections.length"
     >
       <v-col class="px-0 py-0 items">
         <v-menu
@@ -50,10 +52,12 @@
             </span>
                         {{ item.name }} ({{ item.translation }})
                       </v-list-item-title>
+                      <transition name="fade">
                       <IconsGroup
-                          v-if="isHovered === index"
+                          v-show="isHovered === index"
                           @remove-section="removeSection(index)"
                       />
+                      </transition>
                     </v-list-item-content>
                   </template>
                 </v-list-group>
@@ -79,20 +83,21 @@ import ListSVG from "./SVG/ListSVG";
 import {bus} from "../main";
 import sectionItem from "../../mixins/sectionItem";
 import draggable from "vuedraggable";
-import {mapMutations} from "vuex";
+import {mapActions, mapMutations} from "vuex";
 
 export default {
   name: "Sections",
   components: {Table, Fields, IconsGroup,ListSVG,draggable},
   mixins:[sectionItem],
-  props: ['sections'],
+  props:['history','sections'],
   data () {
     return {
       showFields:false,
       index: null,
       active:false,
       dragging: false,
-      enabled: true
+      enabled: true,
+      // sections:[]
     }
   },
   created() {
@@ -114,6 +119,16 @@ export default {
   },
   methods: {
     ...mapMutations(['updateFields','saveSectionsToLocalStorage']),
+    ...mapActions(['getProjectHistory','createProjectHistory']),
+    // loadSections () {
+    //   this.sections = this.getSections
+    //   // if (this.history) {
+    //   //   this.sections = JSON.parse(this.history[this.history.length-1].value)
+    //   //   console.log(this.history)
+    //   // }else {
+    //   //   this.sections = JSON.parse(localStorage.getItem(`sections-${this.$route.params.id}`))
+    //   // }
+    // },
     onClickOutside() {
       if (this.isHovered == null) {
         this.isHovered = true
@@ -134,6 +149,7 @@ export default {
     },
     removeSection(state,index) {
       this.sections.splice(index,1)
+      localStorage.setItem(`sections-${this.$route.params.id}`,JSON.stringify(this.sections))
     },
   }
 }

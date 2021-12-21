@@ -644,6 +644,8 @@ export default {
           currentSection.push(sectionContent)
           localStorage.setItem(`sections-${this.$route.params.id}`, JSON.stringify(currentSection))
           console.log('updated sections', this.sections)
+      // const parsedStorage = JSON.parse(localStorage.getItem(`sections-${this.$route.params.id}`))
+      // this.$store.commit('getSections',parsedStorage)
           this.$emit('close-modal')
     },
     onClickOutside() {

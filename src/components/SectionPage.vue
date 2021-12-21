@@ -70,7 +70,7 @@
         <img :src="require(`@/assets/img/icons/save.svg`)" alt="">
       </v-btn>
     </v-row>
-    <Sections :key="sections.length" :sections="sections"/>
+    <Sections :sections="sections" />
   </v-col>
   </v-row>
   </v-container>
@@ -78,9 +78,10 @@
 
 <script>
 import Sections from "./Sections";
-import { mapMutations } from 'vuex'
+import { mapMutations,mapActions } from 'vuex'
 import History from "./Menus/History";
 import CreateSectionModal from "./Modals/CreateSectionModal";
+import axios from "axios";
 export default {
   name: "SectionPage",
   components: {CreateSectionModal, History, Sections},
@@ -94,28 +95,47 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch('getProjectHistory',this.$route.params.id)
+    const localStorageSection = JSON.parse(localStorage.getItem(`sections-${this.$route.params.id}`))
+    const id = this.$route.params.id
+    this.getProjectHistory(id)
+    if (!localStorageSection) {
+      localStorage.setItem(`sections-${this.$route.params.id}`,'[]')
+      this.sections = localStorageSection
+    }else {
+      this.sections = localStorageSection
+    }
+
+    console.log(this.sections)
   },
   mounted() {
-    const history = this.$store.state.history
-    const isThereSectionsInLocalStore = JSON.parse(localStorage.getItem(`sections-${this.$route.params.id}`))
-    if (!history) {
-      this.sections = isThereSectionsInLocalStore
-    }else {
-      this.sections = JSON.parse(history[history.length-1].value)
-    }
-    console.log(history)
+    // this.getSections()
+  },
+  watch:{
+
   },
   computed: {
-    // sections() {
-    //      return JSON.parse(localStorage.getItem(`sections-${this.$route.params.id}`))
-    // }
+    // sections () {
+    //     const parsedStorage = JSON.parse(localStorage.getItem(`sections-${this.$route.params.id}`))
+    //     return parsedStorage
+    // },
     history() {
+      console.log(this.$store.state.history)
       return this.$store.state.history
     }
   },
   methods:{
     ...mapMutations(['add','remove','saveSectionsToLocalStorage']),
+    ...mapActions(['getProjectHistory','createProjectHistory']),
+    // getSections () {
+      // this.getProjectHistory(this.$route.params.id)
+      // const history = this.$store.state.history
+      // if (this.history) {
+      //   this.sections = JSON.parse(this.history[this.history.length-1].value)
+      //   console.log(this.history)
+      // }else {
+      //   this.sections = JSON.parse(localStorage.getItem(`sections-${this.$route.params.id}`))
+      // }
+    // },
     // addItem() {
     //   this.add({
     //     section: this.title,
@@ -139,19 +159,35 @@ export default {
     saveProjectHistory () {
       let form_data = new FormData()
       const project_id = this.$route.params.id
-      const sections = JSON.stringify(this.sections)
+      const sections = this.sections
       const currentDate = new Date().toString()
+      const id = this.$route.params.id
       form_data.append('project_id',project_id)
-      form_data.append('value',sections)
+      form_data.append('value',JSON.stringify(sections))
       form_data.append('create_at',currentDate)
       form_data.append('on',1)
-      this.$store.dispatch('createProjectHistory',form_data)
+      this.createProjectHistory(form_data,id)
+      const history = this.history
+      localStorage.setItem(`sections-${this.$route.params.id}`,history[history.length-1].value)
+      this.sections = JSON.parse(localStorage.getItem(`sections-${this.$route.params.id}`))
       console.log(currentDate)
     },
     selectHistory (index) {
       this.activeHistoryIndex = index
-      this.sections = JSON.parse(this.history[index].value)
-    }
+      // localStorage.setItem(`sections-${this.$route.params.id}`,this.history[index].value)
+      // this.$store.commit('changeSectionsBySelectingHistory',JSON.parse(this.history[index].value))
+      this.sections = JSON.parse(this.history[this.activeHistoryIndex].value)
+      console.log('sections=',this.sections)
+      console.log('current index',this.activeHistoryIndex)
+    },
+    createProjectHistory (form_data,id) {
+      axios.post(`https://apigen.teo-crm.com/api/history/create`,form_data,{
+        method: "POST"
+      })
+          .then(()=>{
+            this.$store.dispatch('getProjectHistory',id)
+          })
+    },
   }
 }
 </script>

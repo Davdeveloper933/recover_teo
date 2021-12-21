@@ -18,7 +18,7 @@ export default new Vuex.Store({
     customization: [],
     updateCustomization: [],
     customizationSection: [],
-    history:null
+    history:[]
   },
   mutations: {
       getFolders (state,data) {
@@ -30,6 +30,12 @@ export default new Vuex.Store({
           state.projects = data.sort((a,b)=> {
               return a.sort - b.sort
           })
+      },
+      getSections (state) {
+                state.sections = JSON.parse(state.history[state.history.length - 1].value)
+      },
+      changeSectionsBySelectingHistory(state,data) {
+          state.sections = data
       },
       getCustomization (state,data) {
           state.customization = data
@@ -74,8 +80,8 @@ export default new Vuex.Store({
       removeTabSelect(state,index) {
           state.tabSelects.splice(index,1)
       },
-      saveSectionsToLocalStorage(state,id) {
-          localStorage.setItem(`sections-${id}`,JSON.stringify(state.sections))
+      saveSectionsToLocalStorage(id) {
+          localStorage.setItem(`sections-${JSON.stringify(id)}`,'[]')
       },
       updateFields(state,sections) {
           state.sections = sections
